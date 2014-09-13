@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:t="http://myfaces.apache.org/tomahawk"
+    xmlns:h="http://java.sun.com/jsf/html">
+
+<ui:composition template="/WEB-INF/templates/loginTemplate.xhtml">
+    <ui:define name="content">
+        <h:form enctype="multipart/form-data">
+        	<table>
+        		<tr>
+        			<td><h:outputText value="Picture name:"/></td>
+        			<td><h:inputText value="#{imageBean.name}"/></td>
+        		</tr>
+        		<tr>
+        			<td><t:inputFileUpload value="#{imageBean.uploadedFile}" accept="image/*"/></td>
+        			<td><h:commandButton value="submit" action="#{imageBean.submit}"/></td>
+        		</tr>
+        	</table>
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>

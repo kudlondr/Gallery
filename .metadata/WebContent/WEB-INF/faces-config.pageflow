@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf13785675016220" configfile="/Gallery/WebContent/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="main.xhtml" x="143" y="223" id="pf13785677725053" referenceLink="//@navigationRule.18/@fromViewId|" outlinks="pf13785899490556 pf13785899490557 pf13797936871511 pf13797936871512 pf13794449657830 pf13797942904273 pf13798600780920 pf13799608496570 pf14099088853382" inlinks="pf13785899490556 pf13785899490557 pf13797936871511 pf13797936871512 pf13794454338603 pf13797942904273 pf13798600780921 pf13799608496571" path="/main.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="account.xhtml" x="467" y="52" id="pf13794449657832" referenceLink="//@navigationRule.18/@navigationCase.0/@toViewId|" outlinks="pf13794454338604 pf13794454338603" inlinks="pf13794449657830 pf13794454338604 pf13800507124001 pf13800507124003 pf14099068964091 pf14099088853382" path="/account.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="imageUpload.xhtml" x="323" y="223" id="pf13798600780922" referenceLink="//@navigationRule.16/@fromViewId|" outlinks="pf13798600780923 pf13798600780921 pf13800507124003" inlinks="pf13798600780920 pf13798600780923" path="/imageUpload.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="imageDetail.xhtml" x="347" y="364" id="pf13799608496572" referenceLink="//@navigationRule.17/@fromViewId|" outlinks="pf13799608496571 pf13799608496573 pf13800507124154 pf14099068964091" inlinks="pf13799608496570 pf13799608496573" path="/imageDetail.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="userDetail.xhtml" x="600" y="240" id="pf13800507124155" referenceLink="//@navigationRule.15/@fromViewId|" outlinks="pf13800507124001" inlinks="pf13800507124154" path="/userDetail.xhtml"/>
+  <links id="pf13785899490556" target="pf13785677725053" source="pf13785677725053" outcome="failure">
+    <bendPoints d1Height="-36" d2Height="-36"/>
+    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
+    <bendPoints d1Width="-64" d2Width="-64"/>
+  </links>
+  <links id="pf13785899490557" target="pf13785677725053" source="pf13785677725053" outcome="success">
+    <bendPoints d1Height="-66" d2Height="-66"/>
+    <bendPoints d1Width="-94" d1Height="-66" d2Width="-94" d2Height="-66"/>
+    <bendPoints d1Width="-94" d2Width="-94"/>
+  </links>
+  <links id="pf13794449657830" target="pf13794449657832" source="pf13785677725053" outcome="createAccount">
+    <bendPoints d1Width="179" d1Height="-147" d2Width="-153" d2Height="21"/>
+  </links>
+  <links id="pf13794454338604" target="pf13794449657832" source="pf13794449657832" outcome="repeat">
+    <bendPoints d1Height="-36" d2Height="-36"/>
+    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
+    <bendPoints d1Width="-64" d2Width="-64"/>
+  </links>
+  <links id="pf13794454338603" target="pf13785677725053" source="pf13794449657832" outcome="login">
+    <bendPoints d1Width="-134" d1Height="88" d2Width="198" d2Height="-80"/>
+  </links>
+  <links id="pf13797936871511" target="pf13785677725053" source="pf13785677725053" outcome="loginFailure">
+    <bendPoints d1Width="-115" d1Height="-190" d2Width="-115" d2Height="-190"/>
+    <bendPoints d1Width="51" d1Height="-162" d2Width="51" d2Height="-162"/>
+  </links>
+  <links id="pf13797936871512" target="pf13785677725053" source="pf13785677725053" outcome="loginSuccess">
+    <bendPoints d1Width="92" d1Height="-184" d2Width="92" d2Height="-184"/>
+    <bendPoints d1Width="-169" d1Height="-230" d2Width="-169" d2Height="-230"/>
+  </links>
+  <links id="pf13797942904273" target="pf13785677725053" source="pf13785677725053" outcome="logout">
+    <bendPoints d1Width="2" d1Height="-112" d2Width="2" d2Height="-112"/>
+    <bendPoints d1Width="-108" d1Height="-146" d2Width="-108" d2Height="-146"/>
+    <bendPoints d1Width="-136" d1Height="2" d2Width="-136" d2Height="2"/>
+  </links>
+  <links id="pf13798600780920" target="pf13798600780922" source="pf13785677725053" outcome="uploadImage"/>
+  <links id="pf13798600780923" target="pf13798600780922" source="pf13798600780922" outcome="failure">
+    <bendPoints d1Height="-36" d2Height="-36"/>
+    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
+    <bendPoints d1Width="-64" d2Width="-64"/>
+  </links>
+  <links id="pf13798600780921" target="pf13785677725053" source="pf13798600780922" outcome="success"/>
+  <links id="pf13799608496570" target="pf13799608496572" source="pf13785677725053" outcome="showImageDetail"/>
+  <links id="pf13799608496571" target="pf13785677725053" source="pf13799608496572" outcome="home"/>
+  <links id="pf13799608496573" target="pf13799608496572" source="pf13799608496572" outcome="refresh">
+    <bendPoints d1Height="-36" d2Height="-36"/>
+    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
+    <bendPoints d1Width="-64" d2Width="-64"/>
+  </links>
+  <links id="pf13800507124154" target="pf13800507124155" source="pf13799608496572" outcome="#{imageBean.user.showDetail()}"/>
+  <links id="pf13800507124001" target="pf13794449657832" source="pf13800507124155"/>
+  <links id="pf13800507124003" target="pf13794449657832" source="pf13798600780922"/>
+  <links id="pf14099068964091" target="pf13794449657832" source="pf13799608496572"/>
+  <links id="pf14099088853382" target="pf13794449657832" source="pf13785677725053" outcome="manageAccount"/>
+</pageflow:Pageflow>

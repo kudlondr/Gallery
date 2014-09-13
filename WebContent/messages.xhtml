@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:j="http://java.sun.com/jsp/jstl/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/templates/loginTemplate.xhtml">
+    <ui:define name="content">
+    	<!-- Messages list -->
+    	<table>
+    		<j:forEach var="message" items="#{userBean.getMessages()}">
+    			<tr>
+    				<td>
+    					<table>
+    						<tr><td><h:outputText value="${message.createdDate}"/></td></tr>
+    						<tr>
+    							<td>From:</td>
+    							<td><h:outputText value="${message.sender}"/></td>
+    						</tr>
+    						<tr>
+    							<td>To:</td>
+    							<td><h:outputText value="${message.reciever}"/></td>
+    						</tr>
+    						<j:if test="${message.createdBy} != #{userBean.id}">
+    							<tr><td><h:form><h:commandButton value="Respond" action="${message.respond()}"/></h:form></td></tr>
+    						</j:if>
+    						<tr><td><br/></td></tr> <!-- empty line -->
+    						<tr><td><h:form><h:commandButton value="Remove" action="${message.remove()}"/></h:form></td></tr>
+    					</table>
+    				</td>
+    				<td>
+    					<h:outputText value="${message.text}"/>
+    				</td>
+    			</tr>
+    		</j:forEach>
+    	</table>
+    </ui:define>
+</ui:composition>
+</html>

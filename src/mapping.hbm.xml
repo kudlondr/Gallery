@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="cz.cuni.mff.java.advanced.gallery.beans">
+	<class name="Comment" table="COMMENTS">
+		<meta attribute="class-description">Commentary of user's page or an image.</meta>
+		<id name="id" column="ID">
+			<generator class="native"/>
+		</id>
+		<one-to-one name="sender" foreign-key="USER.ID"/>
+		<many-to-one name="sender" column="SENDERID" unique="true" class="User"/>
+		<many-to-one name="reciever" column="RESPONSEID" unique="true" class="User"/>
+		<property name="type" column="TYPE"/>
+		<property name="text" column="TEXT"/>
+		<property name="createdDate" column="CREATEDDATE" type="timestamp"/>
+		<property name="hidden" column="HIDDEN"/>
+	</class>
+	<class name="Image" table="IMAGES">
+		<meta attribute="class-description">Picture posted by user.</meta>
+		<id name="id" column="ID">
+			<generator class="native"/>
+		</id>
+		<many-to-one name="owner" column="OWNERID" unique="true" class="User"/>
+		<property name="name"/>
+		<property name="createdDate" type="timestamp" not-null="true"/>
+		<property name="hidden"/>
+		<property name="data"/>
+		<property name="description"/>
+	</class>
+	<class name="Message" table="MESSAGES">
+		<meta attribute="class-description">Message sent from user to another user.</meta>
+		<id name="id">
+			<generator class="native"/>
+		</id>
+		<many-to-one name="sender" column="SENDERID" unique="true" class="User"/>
+		<many-to-one name="reciever" column="RESPONSEID" unique="true" class="User"/>
+		<property name="createdDate" type="timestamp" not-null="true"/>
+		<property name="text"/>
+		<many-to-one name="response" column="RESPONSEID" unique="true" class="Message"/>
+		<property name="read"/>
+	</class>
+	<class name="User" table="USERS">
+		<meta attribute="class-description">Logged in person capable of sending messages, posting comments and uploading images</meta>
+		<id name="id">
+			<generator class="native"/>
+		</id>
+		<property name="username"/>
+		<property name="password"/>
+		<property name="email"/>
+		<property name="name"/>
+		<property name="surname"/>
+		<property name="showemail"/>
+		<property name="showname"/>
+		<property name="showsurname"/>
+	</class>
+</hibernate-mapping>

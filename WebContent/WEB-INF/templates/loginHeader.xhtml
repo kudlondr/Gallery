@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:j="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<ui:composition>
+		<body>
+			<div id="header">
+			    <ui:insert name="header">
+			        <ui:include src="/WEB-INF/templates/header.xhtml"/>
+			    </ui:insert>
+			</div>
+			<j:choose>
+			    	<j:when test="#{not userBean.loggedin}">
+			    		<h:form>
+				            <h:outputText value="Name"/>
+				            <h:inputText value="#{userBean.username}"/>
+				            <h:outputText value="Password"/>
+				            <h:inputSecret value="#{userBean.password}"/>
+				            <h:commandButton value="Login" action="#{userBean.login}"/>
+				            <h:commandButton value="Create account" action="createAccount"/>
+			            </h:form>
+			    	</j:when>
+			    	<j:otherwise>
+			    		<table><tr>
+		    				<td>
+					    		<h:form>
+					    			<h:outputText value="#{userBean.username}" id="userName"/>
+					    			<h:commandButton value="Logout" action="#{userBean.logout}"/>
+					    		</h:form>
+				    		</td>
+				    		<td>
+					    		<h:form>
+					    			
+					    			<h:commandButton value="Upload image" action="uploadImage"/>
+					    		</h:form>
+				    		</td>
+				    		<td>
+					    		<h:form>
+					    			<h:commandButton value="Manage account" action="manageAccount" />
+					    		</h:form>
+				    		</td>
+				    	</tr></table>
+			    	</j:otherwise>
+		    	</j:choose>
+		</body>
+	</ui:composition>
+</html>

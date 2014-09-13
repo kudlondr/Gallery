@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:j="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/WEB-INF/templates/loginTemplate.xhtml">
+	<ui:define name="content">
+        <h:form>
+            <table>
+            	<tr>
+            		<td><h:outputText value="Login name"></h:outputText></td>
+	                <td><h:inputText value="#{userBean.username}"/></td>
+	            </tr>
+	            <tr>
+	            	<td><h:outputText value="Password"></h:outputText></td>
+	               	<td><h:inputSecret value="#{userBean.password}"/></td>
+	            </tr>
+	            <tr>
+	            	<td><h:outputText value="Repeat password"></h:outputText></td>
+	               	<td><h:inputSecret value="#{userBean.passwordCheck}"/></td>
+	            </tr>
+	            <tr>
+	            	<td><h:outputText value="Email"/></td>
+	                <td><h:inputText value="#{userBean.email}"/></td>
+	                <td><h:selectBooleanCheckbox value="#{userBean.showemail}"/></td>
+	                <j:if test="#{userBean.emailExists}">
+						<td><h:outputText value="account with this email already exists"/></td>
+					</j:if>
+	            </tr>
+	            <tr>
+	            	<td><h:outputText value="Name"/></td>
+	                <td><h:inputText value="#{userBean.name}"/></td>
+	               	<td><h:selectBooleanCheckbox value="#{userBean.showname}"/></td>
+	            </tr>
+	            <tr>
+	            	<td><h:outputText value="Surname"/></td>
+	               	<td><h:inputText value="#{userBean.surname}"/></td>
+	                <td><h:selectBooleanCheckbox value="#{userBean.showsurname}"/></td>
+	            </tr>
+	        </table>
+            <h:commandButton value="#{userBean.createButtonLabel}" action="#{userBean.create}"></h:commandButton>
+        </h:form>
+        <br/>
+        
+        <j:if test="#{userBean.loggedin}">	    	
+	        <table>
+	        	<tr>
+	        		<td>Watching:</td>
+	        	</tr>
+	        	<j:forEach var="watch" items="#{userBean.watchlists}">
+	    			<tr>
+	    				<td>
+	    					<h:outputText value="${watch.name}"/>
+	    				</td>
+	    				<td>
+	    					<h:form>
+					            <h:commandButton value="Remove from watch" action="#{watch.removeFromWatch}"/>
+				            </h:form>
+	    				</td>
+	    			</tr>
+	    		</j:forEach>
+	        </table>
+        </j:if>
+    </ui:define>
+</ui:composition>
+</html>
