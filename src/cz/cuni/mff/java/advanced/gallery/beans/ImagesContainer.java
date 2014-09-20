@@ -1,23 +1,25 @@
 package cz.cuni.mff.java.advanced.gallery.beans;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
+import cz.cuni.mff.java.advanced.gallery.data.ImageDataManager;
 import cz.cuni.mff.java.advanced.gallery.exceptions.GalleryException;
-import cz.cuni.mff.java.advanced.gallery.model.data.DatabaseController;
 
 public class ImagesContainer {
-	private List<Image> imagesList;
 	private Image[] images;
 
 	public Image[] getImages() {
-		if(imagesList == null || imagesList.isEmpty()) {
-			try{
-				DatabaseController.getMostCurrentImagesList(this);
-				images = new Image[imagesList.size()];
-				images = imagesList.toArray(images);
+		if(images == null || images.length == 0) {
+			try {
+				
+				Collection<cz.cuni.mff.java.advanced.gallery.common.Image> imagesCommonCol = ImageDataManager.getMostCurrentImagesList(10);
+				Collection<Image> imagesCol = cz.cuni.mff.java.advanced.gallery.util.ModelMapper.convert(imagesCommonCol, Image.class);
+				
+				images = new Image[imagesCol.size()];
+				images = imagesCol.toArray(images);
+				
 			} catch(GalleryException e) {
-				this.imagesList = new ArrayList<Image>();
+				e.printStackTrace();
 			}
 		}
 		
@@ -28,10 +30,10 @@ public class ImagesContainer {
 		this.images = images;
 	}
 	
-	public void addImage(Image image) {
-		if(imagesList == null)
-			imagesList = new ArrayList<Image>();
-		
-		imagesList.add(image);
-	}
+//	public void addImage(Image image) {
+//		if(imagesList == null)
+//			imagesList = new ArrayList<Image>();
+//		
+//		imagesList.add(image);
+//	}
 }

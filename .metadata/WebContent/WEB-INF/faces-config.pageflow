@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf13785675016220" configfile="/Gallery/WebContent/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="main.xhtml" x="143" y="223" id="pf13785677725053" referenceLink="//@navigationRule.18/@fromViewId|" outlinks="pf13785899490556 pf13785899490557 pf13797936871511 pf13797936871512 pf13794449657830 pf13797942904273 pf13798600780920 pf13799608496570 pf14099088853382" inlinks="pf13785899490556 pf13785899490557 pf13797936871511 pf13797936871512 pf13794454338603 pf13797942904273 pf13798600780921 pf13799608496571" path="/main.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="account.xhtml" x="467" y="52" id="pf13794449657832" referenceLink="//@navigationRule.18/@navigationCase.0/@toViewId|" outlinks="pf13794454338604 pf13794454338603" inlinks="pf13794449657830 pf13794454338604 pf13800507124001 pf13800507124003 pf14099068964091 pf14099088853382" path="/account.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="main.xhtml" x="143" y="223" id="pf13785677725053" referenceLink="//@navigationRule.18/@fromViewId|" outlinks="pf13785899490556 pf13785899490557 pf13797936871511 pf13797936871512 pf13794449657830 pf13797942904273 pf13798600780920 pf13799608496570 pf14099088853382" inlinks="pf13785899490556 pf13785899490557 pf13797936871511 pf13797936871512 pf13794454338603 pf13797942904273 pf13798600780921 pf13799608496571 pf14112483460640" path="/main.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="account.xhtml" x="467" y="52" id="pf13794449657832" referenceLink="//@navigationRule.18/@navigationCase.0/@toViewId|" outlinks="pf13794454338604 pf13794454338603 pf14112483460640" inlinks="pf13794449657830 pf13794454338604 pf13800507124001 pf13800507124003 pf14099068964091 pf14099088853382" path="/account.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="imageUpload.xhtml" x="323" y="223" id="pf13798600780922" referenceLink="//@navigationRule.16/@fromViewId|" outlinks="pf13798600780923 pf13798600780921 pf13800507124003" inlinks="pf13798600780920 pf13798600780923" path="/imageUpload.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="imageDetail.xhtml" x="347" y="364" id="pf13799608496572" referenceLink="//@navigationRule.17/@fromViewId|" outlinks="pf13799608496571 pf13799608496573 pf13800507124154 pf14099068964091" inlinks="pf13799608496570 pf13799608496573" path="/imageDetail.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="userDetail.xhtml" x="600" y="240" id="pf13800507124155" referenceLink="//@navigationRule.15/@fromViewId|" outlinks="pf13800507124001" inlinks="pf13800507124154" path="/userDetail.xhtml"/>
@@ -58,4 +58,5 @@
   <links id="pf13800507124003" target="pf13794449657832" source="pf13798600780922"/>
   <links id="pf14099068964091" target="pf13794449657832" source="pf13799608496572"/>
   <links id="pf14099088853382" target="pf13794449657832" source="pf13785677725053" outcome="manageAccount"/>
+  <links id="pf14112483460640" target="pf13785677725053" source="pf13794449657832" outcome="logout"/>
 </pageflow:Pageflow>

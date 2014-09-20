@@ -1,10 +1,11 @@
 package cz.cuni.mff.java.advanced.gallery.common;
 
+import java.util.Set;
+
 import cz.cuni.mff.java.advanced.gallery.exceptions.SecurityException;
 import cz.cuni.mff.java.advanced.gallery.security.Encryptor;
 
-public class User {
-	protected int id;
+public abstract class User extends IdentifiedObject {
 	
 	protected String username;
 	protected String password;
@@ -17,6 +18,14 @@ public class User {
 	protected boolean showname;
 	protected boolean showsurname;
 	
+	protected Set<User> watchlist;
+	
+	public void setWatchlist(Set<User> watchlist) {
+		this.watchlist = watchlist;
+	}
+	public Set<User> getWatchlist() {
+		return watchlist;
+	}
 	public void setUsername(String value) {
 		this.username = value;
 	}	
@@ -24,7 +33,7 @@ public class User {
 		return this.username;
 	}	
 	public void setPassword(String value) {
-		try{
+		try {
 			this.password = Encryptor.makeSHA1Hash(value);
 		} catch(SecurityException e) {
 			e.printStackTrace();
@@ -87,8 +96,5 @@ public class User {
 	}	
 	public boolean getShowsurname() {
 		return this.showsurname;
-	}
-	public int getId() {
-		return id;
 	}
 }

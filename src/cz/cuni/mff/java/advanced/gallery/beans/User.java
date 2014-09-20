@@ -1,13 +1,8 @@
 package cz.cuni.mff.java.advanced.gallery.beans;
 
-import java.util.Date;
-
-import cz.cuni.mff.java.advanced.gallery.exceptions.RecordExistsException;
+import cz.cuni.mff.java.advanced.gallery.data.UserDataManager;
 import cz.cuni.mff.java.advanced.gallery.exceptions.GalleryException;
-import cz.cuni.mff.java.advanced.gallery.exceptions.SecurityException;
-import cz.cuni.mff.java.advanced.gallery.model.data.DataManager;
-import cz.cuni.mff.java.advanced.gallery.model.data.HibernateUtil;
-import cz.cuni.mff.java.advanced.gallery.security.Encryptor;
+import cz.cuni.mff.java.advanced.gallery.exceptions.RecordExistsException;
 
 public class User extends cz.cuni.mff.java.advanced.gallery.common.User {
 	
@@ -24,22 +19,24 @@ public class User extends cz.cuni.mff.java.advanced.gallery.common.User {
 			
 			return "repeat";
 		} else {
-			try{
-				if(getLoggedin()) {
-					DatabaseController.updateUser(this);
-					return "repeat";
-				} else {
-					DatabaseController.createUser(this);
-				}
-			} catch(RecordExistsException e) {
-				emailExists = true;
-				return "repeat";
-			} catch(GalleryException e) {
-				e.printStackTrace();
+			return save();
+		}
+	}
+	
+	public String save() {
+		try {
+			UserDataManager.saveUser(this);
+			if(getLoggedin()) {
 				return "repeat";
 			}
-			return "login";
+		} catch(RecordExistsException e) {
+			emailExists = true;
+			return "repeat";
+		} catch(GalleryException e) {
+			e.printStackTrace();
+			return "repeat";
 		}
+		return "login";
 	}
 	
 	public String getCreateButtonLabel() {
@@ -51,9 +48,21 @@ public class User extends cz.cuni.mff.java.advanced.gallery.common.User {
 	}
     
     public String login() {
-    	
-    	try{
-	    	if(DatabaseController.isLoginCorrect(this)) {
+    	try {
+    		cz.cuni.mff.java.advanced.gallery.common.User foundUser = UserDataManager.isLoginCorrect(this);
+	    	if(foundUser != null) {
+	    		this.createdDate = foundUser.getCreatedDate();
+	    		this.email = foundUser.getEmail();
+	    		this.id = foundUser.getId();
+	    		this.name = foundUser.getName();
+	    		//this.password = foundUser.password;
+	    		//this.passwordCheck = foundUser.passwordCheck;
+	    		this.showemail = foundUser.getShowemail();
+	    		this.showname = foundUser.getShowname();
+	    		this.showsurname = foundUser.getShowsurname();
+	    		this.username = foundUser.getUsername();
+	    		this.watchlist = foundUser.getWatchlist();
+	    		
 	    		setLoggedin(true);
 	    		return "loginSuccess";
 	    	}
@@ -65,22 +74,7 @@ public class User extends cz.cuni.mff.java.advanced.gallery.common.User {
 
 
 	public boolean getLoggedin() {
-		
-		testHibernate();
-		
 		return loggedin;
-	}
-	
-	private void testHibernate() {
-		try {
-			Image image = new Image();
-			image.setName("hibernateTest "+(new Date()).toString());
-			image.setCreatedDate(new Date());
-			image.setUserId(0);	
-			DataManager.store(image);
-		} catch(Throwable e) {
-			e.printStackTrace();
-		}
 	}
 
 	public void setLoggedin(boolean loggedin) {
@@ -99,16 +93,6 @@ public class User extends cz.cuni.mff.java.advanced.gallery.common.User {
 	
 	private void clear() {
 		this.username = "";
-	}
-	
-	public Watchlist[] getWatchlists() {
-		try{
-			return DatabaseController.getWatching(this);
-		} catch(GalleryException e) {
-			e.printStackTrace();
-		}
-		
-		return null;
 	}
 	
 	public boolean getEmailExists() {

@@ -3,33 +3,52 @@
         "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
-<hibernate-mapping package="cz.cuni.mff.java.advanced.gallery.beans">
-	<class name="Comment" table="COMMENTS">
+<hibernate-mapping package="cz.cuni.mff.java.advanced.gallery.data.model">
+	<class name="Comment" table="COMMENTS" lazy="false">
 		<meta attribute="class-description">Commentary of user's page or an image.</meta>
 		<id name="id" column="ID">
 			<generator class="native"/>
 		</id>
-		<one-to-one name="sender" foreign-key="USER.ID"/>
 		<many-to-one name="sender" column="SENDERID" unique="true" class="User"/>
 		<many-to-one name="reciever" column="RESPONSEID" unique="true" class="User"/>
 		<property name="type" column="TYPE"/>
 		<property name="text" column="TEXT"/>
 		<property name="createdDate" column="CREATEDDATE" type="timestamp"/>
 		<property name="hidden" column="HIDDEN"/>
+		<!-- <join table="USER_COMMENTS" optional="true" inverse="true">
+			<key column="COMMENTID"/>
+			<many-to-one name="User" column="UserId"/>
+		</join>
+		<join table="IMAGE_COMMENTS" optional="true" inverse="true">
+			<key column="COMMENTID"/>
+			<many-to-one name="Image" column="imageId"/>
+		</join>-->
 	</class>
-	<class name="Image" table="IMAGES">
+	<class name="Image" table="IMAGES" lazy="false">
 		<meta attribute="class-description">Picture posted by user.</meta>
 		<id name="id" column="ID">
 			<generator class="native"/>
 		</id>
 		<many-to-one name="owner" column="OWNERID" unique="true" class="User"/>
+		<set name="comments" table="IMAGE_COMMENTS">
+	        <key column="imageid"/>
+	        <one-to-many class="Comment"/>
+	    </set>
+	    <many-to-one name="preview" column="PREVIEWID" unique="true" class="ImagePreview" not-found="ignore"/>
 		<property name="name"/>
 		<property name="createdDate" type="timestamp" not-null="true"/>
 		<property name="hidden"/>
 		<property name="data"/>
 		<property name="description"/>
 	</class>
-	<class name="Message" table="MESSAGES">
+	<class name="ImagePreview" table="IMAGE_PREVIEWS" lazy="false">
+		<meta attribute="class-description">Thumbnail or a description of a picture</meta>
+		<id name="id" column="ID">
+			<generator class="native"/>
+		</id>
+		<property name="data"/>
+	</class>
+	<class name="Message" table="MESSAGES" lazy="false">
 		<meta attribute="class-description">Message sent from user to another user.</meta>
 		<id name="id">
 			<generator class="native"/>
@@ -38,10 +57,10 @@
 		<many-to-one name="reciever" column="RESPONSEID" unique="true" class="User"/>
 		<property name="createdDate" type="timestamp" not-null="true"/>
 		<property name="text"/>
-		<many-to-one name="response" column="RESPONSEID" unique="true" class="Message"/>
+		<many-to-one name="response" column="RESPONSEID" unique="true" class="Message" insert="false" update="false"/>
 		<property name="read"/>
 	</class>
-	<class name="User" table="USERS">
+	<class name="User" table="USERS" lazy="false">
 		<meta attribute="class-description">Logged in person capable of sending messages, posting comments and uploading images</meta>
 		<id name="id">
 			<generator class="native"/>
@@ -54,5 +73,9 @@
 		<property name="showemail"/>
 		<property name="showname"/>
 		<property name="showsurname"/>
+		<set name="watchlist" table="WATCHLISTS" cascade="none" lazy="false" > <!-- user has list of other users over watchList table  -->
+	        <key column="BELONGSTO"/>
+	        <many-to-many column="WATCHING" class="User"/>
+	    </set>
 	</class>
 </hibernate-mapping>

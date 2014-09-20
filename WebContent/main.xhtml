@@ -15,11 +15,7 @@
     		<j:forEach var="imageItem" items="#{imagesContainerBean.images}">
     			<tr>
     				<td>
-    					<!-- <h:commandLink action="showImageDetail">-->
-	    					<p:graphicImage value="${imageItem.image}"><!-- url="#{imageItem.userId}-#{imageItem.name}">-->
-	    						<f:param name="id" value="#{imageItem.userId}-#{imageItem.name}"/>
-	    					</p:graphicImage>
-    					<!-- </h:commandLink>-->
+    					<img src="/Gallery/faces/images/${imageItem.id}?thumb"/>
     				</td>
     			</tr>
     		</j:forEach>

@@ -21,6 +21,7 @@ create table IMAGES (
 	hidden boolean not null default false,
 	description clob,
 	data blob,
+	previewid int not null,
 	
 	constraint I_IMAGES_ID primary key (id),
 	constraint U_IMAGES unique (name, userId)
@@ -54,7 +55,28 @@ create table WATCHLISTS (
 	id int not null auto_increment,
 	belongsTo int not null,
 	watching int not null,
-	createDate timestamp not null default sysdate,
+	createdDate timestamp not null default sysdate,
 	
 	constraint I_WATCHLIST_ID primary key (id)
+);
+
+create table IMAGE_COMMENTS (
+	id integer(10) not null,
+	imageId integer(10) not null,
+	commentId integer(10) not null,
+	constraint I_IMAGE_COMMENTS_ID primary key (id)
+);
+
+create table USER_COMMENTS (
+	id integer(10) not null,
+	userId integer(10) not null,
+	commentId integer(10) not null,
+	constraint I_USER_COMMENT_ID primary key (id)
+);
+
+create table IMAGE_PREVIEWS (
+	id int not null auto_increment,
+	createdDate timestamp not null default sysdate,
+	data blob,
+	constraint I_IMAGE_PREVIEWS_ID primary key (id)
 );

@@ -1,4 +1,4 @@
-package cz.cuni.mff.java.advanced.gallery.model.data;
+package cz.cuni.mff.java.advanced.gallery.data.util;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -21,5 +21,4 @@ public class HibernateUtil {
     public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
-
 }

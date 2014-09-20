@@ -6,10 +6,9 @@ import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.myfaces.custom.fileupload.UploadedFile;
-import org.primefaces.model.DefaultStreamedContent;
-import org.primefaces.model.StreamedContent;
 
-import cz.cuni.mff.java.advanced.gallery.model.data.DataManager;
+import cz.cuni.mff.java.advanced.gallery.data.ImageDataManager;
+import cz.cuni.mff.java.advanced.gallery.exceptions.GalleryException;
 
 public class Image extends cz.cuni.mff.java.advanced.gallery.common.Image {
 	
@@ -19,8 +18,12 @@ public class Image extends cz.cuni.mff.java.advanced.gallery.common.Image {
     	
         this.setStreamedData(uploadedFile.getInputStream());
         
-        if(DataManager.store(this)) {
-        	return "success";
+        try{
+	        if(ImageDataManager.saveImage(this)) {
+	        	return "success";
+	        }
+        } catch(GalleryException e) {
+        	e.printStackTrace();
         }
         
         return "failure";
@@ -44,19 +47,5 @@ public class Image extends cz.cuni.mff.java.advanced.gallery.common.Image {
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	public StreamedContent getImage() {
-//		FacesContext context = FacesContext.getCurrentInstance();
-		
-//		if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
-//		    // So, we're rendering the view. Return a stub StreamedContent so that it will generate right URL.
-//		    return new DefaultStreamedContent();
-//		}
-//		else {
-            // So, browser is requesting the image. Return a real StreamedContent with the image bytes.
-            return new DefaultStreamedContent(getStreamedData());
-//        }
-//		return new DefaultStreamedContent(getData());
 	}
 }

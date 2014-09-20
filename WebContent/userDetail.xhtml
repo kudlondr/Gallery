@@ -16,9 +16,7 @@
     			<tr>
     				<td>
     					<h:commandLink action="imageDetail">
-	    					<p:graphicImage value="${image.image}" url="#{image.userId}-#{image.name}">
-	    						<f:param name="id" value="#{image.userId}-#{image.name}"/>
-	    					</p:graphicImage>
+    						<img src="/Gallery/faces/images/${image.id}"/>
     					</h:commandLink>
     				</td>
     			</tr>

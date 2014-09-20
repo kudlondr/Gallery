@@ -42,7 +42,14 @@
 	                <td><h:selectBooleanCheckbox value="#{userBean.showsurname}"/></td>
 	            </tr>
 	        </table>
-            <h:commandButton value="#{userBean.createButtonLabel}" action="#{userBean.create}"></h:commandButton>
+	        <j:choose>
+	        	<j:when test="#{userBean.loggedin}">
+	        		<h:commandButton value="#{userBean.createButtonLabel}" action="#{userBean.save}"/>
+	        	</j:when>
+	        	<j:otherwise>
+	        		<h:commandButton value="#{userBean.createButtonLabel}" action="#{userBean.create}"/>
+	        	</j:otherwise>
+	        </j:choose>
         </h:form>
         <br/>
         
@@ -51,7 +58,7 @@
 	        	<tr>
 	        		<td>Watching:</td>
 	        	</tr>
-	        	<j:forEach var="watch" items="#{userBean.watchlists}">
+	        	<j:forEach var="watch" items="#{userBean.watchlist}">
 	    			<tr>
 	    				<td>
 	    					<h:outputText value="${watch.name}"/>

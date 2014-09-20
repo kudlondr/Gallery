@@ -1,16 +1,12 @@
 package cz.cuni.mff.java.advanced.gallery.common;
 
-import java.util.Date;
-
 import cz.cuni.mff.java.advanced.gallery.beans.User;
 
-public class Comment {
-	protected int id;
+public abstract class Comment extends IdentifiedObject {
 	protected User sender;
 	protected User reciever;
 	protected String type;
 	protected String text;
-	protected Date createdDate;
 	protected boolean hidden;
 	
 	public User getSender() {
@@ -36,15 +32,6 @@ public class Comment {
 	}
 	public void setReciever(User reciever) {
 		this.reciever = reciever;
-	}
-	public Date getCreatedDate() {
-		return createdDate;
-	}
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-	public int getId() {
-		return id;
 	}
 	public boolean getHidden() {
 		return hidden;
