@@ -1,5 +1,7 @@
 package cz.cuni.mff.java.advanced.gallery.common;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 public abstract class Image extends IdentifiedObject {
@@ -48,6 +50,8 @@ public abstract class Image extends IdentifiedObject {
 		this.description = description;
 	}
 	public Set<Comment> getComments() {
+		if(comments == null)
+			comments = new HashSet<Comment>(); 
 		return comments;
 	}
 	public void setComments(Set<Comment> comments) {

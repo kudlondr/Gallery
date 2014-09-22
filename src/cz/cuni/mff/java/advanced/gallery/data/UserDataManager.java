@@ -18,10 +18,10 @@ public class UserDataManager extends DataManager {
 	
 	public static cz.cuni.mff.java.advanced.gallery.common.User isLoginCorrect(cz.cuni.mff.java.advanced.gallery.common.User user) throws DatabaseException {
 		Session session = null;
-		Transaction trans = null;
+		Transaction tr = null;
 		try {
 	        session = getSession();
-	        trans = session.beginTransaction();
+	        tr = session.beginTransaction();
 	        
 	        SQLQuery query = session.createSQLQuery("select * from USERS where username = :userName and password = :password");
 	        query.setParameter("userName", user.getUsername());
@@ -29,10 +29,12 @@ public class UserDataManager extends DataManager {
 	        query.addEntity(User.class);
 	        
 	        List<?> queryResult = query.list();
+	        tr.commit();
 	        return queryResult != null && queryResult.size() == 1 ? ((User) queryResult.get(0)) : null;
 	        
 		} catch(HibernateException e) {
-			if(trans != null) trans.rollback();
+			if(tr != null)
+				tr.rollback();
 			throw new DatabaseException(e);
 		}
 	}
@@ -44,7 +46,8 @@ public class UserDataManager extends DataManager {
 	
 	public static void removeFromWatchList(cz.cuni.mff.java.advanced.gallery.common.User watchlistOwner, cz.cuni.mff.java.advanced.gallery.common.User toRemove) throws DatabaseException {
 		watchlistOwner.getWatchlist().remove(toRemove);
-		convertAndStore(watchlistOwner, User.class);
+		User completedUserData = replaceNullsWithStoredData(convert(watchlistOwner, User.class));
+		convertAndStore(completedUserData, User.class);
 	}
 	
 	public static void addToWatchList(cz.cuni.mff.java.advanced.gallery.common.User watchlistOwner, cz.cuni.mff.java.advanced.gallery.common.User toWatch) throws DatabaseException {

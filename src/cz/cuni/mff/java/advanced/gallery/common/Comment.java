@@ -1,11 +1,7 @@
 package cz.cuni.mff.java.advanced.gallery.common;
 
-import cz.cuni.mff.java.advanced.gallery.beans.User;
-
 public abstract class Comment extends IdentifiedObject {
 	protected User sender;
-	protected User reciever;
-	protected String type;
 	protected String text;
 	protected boolean hidden;
 	
@@ -20,18 +16,6 @@ public abstract class Comment extends IdentifiedObject {
 	}
 	public void setText(String text) {
 		this.text = text;
-	}
-	public String getType() {
-		return type;
-	}
-	public void setType(String type) {
-		this.type = type;
-	}
-	public User getReciever() {
-		return reciever;
-	}
-	public void setReciever(User reciever) {
-		this.reciever = reciever;
 	}
 	public boolean getHidden() {
 		return hidden;

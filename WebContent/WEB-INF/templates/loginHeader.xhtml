@@ -8,7 +8,7 @@
 	<ui:composition>
 		<body>
 			<div id="header">
-			    <ui:insert name="header">
+			    <ui:insert name="home">
 			        <ui:include src="/WEB-INF/templates/header.xhtml"/>
 			    </ui:insert>
 			</div>
@@ -18,22 +18,28 @@
 				            <h:outputText value="Name"/>
 				            <h:inputText value="#{userBean.username}"/>
 				            <h:outputText value="Password"/>
-				            <h:inputSecret value="#{userBean.password}"/>
+				            <h:inputSecret value="#{userBean.loginPassword}"/>
 				            <h:commandButton value="Login" action="#{userBean.login}"/>
 				            <h:commandButton value="Create account" action="createAccount"/>
 			            </h:form>
 			    	</j:when>
 			    	<j:otherwise>
 			    		<table><tr>
+			    			<td>
+			    				<h:outputText value="#{userBean.username}" id="userName"/>
+			    			</td>
+			    			<td>
+			    				<h:form>
+					    			<h:commandLink value="#{userBean.messagesCount}" action="#{userBean.logout}"/>
+					    		</h:form>
+			    			</td>
 		    				<td>
 					    		<h:form>
-					    			<h:outputText value="#{userBean.username}" id="userName"/>
 					    			<h:commandButton value="Logout" action="#{userBean.logout}"/>
 					    		</h:form>
 				    		</td>
 				    		<td>
 					    		<h:form>
-					    			
 					    			<h:commandButton value="Upload image" action="uploadImage"/>
 					    		</h:form>
 				    		</td>

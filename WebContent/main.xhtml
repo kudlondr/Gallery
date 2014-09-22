@@ -4,9 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:j="http://java.sun.com/jsp/jstl/core"
     xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:p="http://primefaces.org/ui">
+    xmlns:h="http://java.sun.com/jsf/html">
 
 <ui:composition template="/WEB-INF/templates/loginTemplate.xhtml">
 	<ui:debug />
@@ -15,7 +13,16 @@
     		<j:forEach var="imageItem" items="#{imagesContainerBean.images}">
     			<tr>
     				<td>
-    					<img src="/Gallery/faces/images/${imageItem.id}?thumb"/>
+    					<h:form>
+    						<h:commandLink action="#{imageItem.goToDetail(userBean)}">
+	   							<p>
+	   								<h:outputText value="#{imageItem.name}"/>
+	   								<h:outputText value=" by "/>
+	   								<h:outputText value="#{imageItem.owner.username}"/>
+	   							</p>
+	   							<img src="/Gallery/faces/images/${imageItem.id}?preview"/>
+   							</h:commandLink>
+						</h:form>
     				</td>
     			</tr>
     		</j:forEach>

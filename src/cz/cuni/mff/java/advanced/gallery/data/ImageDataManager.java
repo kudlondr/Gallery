@@ -11,22 +11,43 @@ import org.hibernate.Transaction;
 
 import cz.cuni.mff.java.advanced.gallery.data.model.Comment;
 import cz.cuni.mff.java.advanced.gallery.data.model.Image;
+import cz.cuni.mff.java.advanced.gallery.data.model.ImagePreview;
 import cz.cuni.mff.java.advanced.gallery.exceptions.DatabaseException;
 
 public class ImageDataManager extends DataManager {
 	
 	
-	public static boolean saveImage(cz.cuni.mff.java.advanced.gallery.common.Image image) throws DatabaseException {
-		return store(image);
+	public static boolean insertImage(cz.cuni.mff.java.advanced.gallery.common.Image imageData) throws DatabaseException {
+		ImagePreview preview = convert(imageData.getPreview(), ImagePreview.class);
+		Image image = convert(imageData, Image.class);
+		
+		image.setPreview(preview);
+		
+		Session session = null;
+		Transaction tr = null;
+		try {
+	        session = getSession();
+	        tr = session.beginTransaction();
+	        
+	        session.save(preview);
+	        
+	        session.save(image);
+	        
+	        tr.commit();
+	        return true;
+		} catch(HibernateException e) {
+			tr.rollback();
+			throw new DatabaseException(e);
+		}
 	}
 	
 	
 	public static Collection<cz.cuni.mff.java.advanced.gallery.common.Image> getMostCurrentImagesList(int recordsCount) throws DatabaseException {
 		Session session = null;
-		Transaction trans = null;
+		Transaction tr = null;
 		try {
 	        session = getSession();
-	        trans = session.beginTransaction();
+	        tr = session.beginTransaction();
 	        
 	        SQLQuery query = session.createSQLQuery("select * from (select * from IMAGES order by CREATEDDATE desc) where rownum <= :recordsCount");
 	        query.setParameter("recordsCount", recordsCount);
@@ -37,12 +58,11 @@ public class ImageDataManager extends DataManager {
 	        for(Object resultRecord : queryResult) {
 	        	images.add((Image) resultRecord);
 	        }
-	        
-	        trans.commit();
-	        
+	        tr.commit();
 	        return images;
 		} catch(HibernateException e) {
-			if(trans != null) trans.rollback();
+			if(tr != null)
+				tr.rollback();
 			throw new DatabaseException(e);
 		}
 	}
@@ -65,12 +85,38 @@ public class ImageDataManager extends DataManager {
 		convertAndStore(image, Image.class);
 	}
 	
+	public static void unhideComment(cz.cuni.mff.java.advanced.gallery.common.Comment comment) throws DatabaseException {
+		comment.setHidden(false);
+		convertAndStore(comment, Comment.class);
+	}
+	
 	public static void hideComment(cz.cuni.mff.java.advanced.gallery.common.Comment comment) throws DatabaseException {
 		comment.setHidden(true);
 		convertAndStore(comment, Comment.class);
 	}
-	
-	public static void createComment(cz.cuni.mff.java.advanced.gallery.common.Comment comment) throws DatabaseException {
-		convertAndStore(comment, Comment.class);
+
+	public static boolean addComment(cz.cuni.mff.java.advanced.gallery.common.Image image, cz.cuni.mff.java.advanced.gallery.common.Comment comment) throws DatabaseException {
+		Comment modelComment = convert(comment, Comment.class);
+		Image modelImage = convert(image, Image.class);
+		
+		Session session = null;
+		Transaction tr = null;
+		try {
+	        session = getSession();
+	        tr = session.beginTransaction();
+	        
+	        session.save(modelComment);
+	        
+	        modelImage.getComments().add(modelComment);
+	        session.saveOrUpdate(modelImage);
+	        
+	        tr.commit();
+	        
+	        image.getComments().add(modelComment);
+	        return true;
+		} catch(HibernateException e) {
+			tr.rollback();
+			throw new DatabaseException(e);
+		}
 	}
 }

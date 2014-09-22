@@ -22,7 +22,7 @@ public class ModelMapper {
 			try{
 				Method getter = getGetter(klass, field);
 				Object value = getter.invoke(toComplete);
-				if(value == null) {
+				if(value == null || (value instanceof String && ((String)value).isEmpty())) {
 					Method setter = getSetter(klass, field);
 					setter.invoke(toComplete, getter.invoke(toGetData));
 				}
@@ -56,23 +56,12 @@ public class ModelMapper {
 				Method sourceGetter = getGetter(sourceObject.getClass(), field);
 				Method destinationSetter = getSetter(toClass, field);
 	
+				if(sourceGetter == null)
+					continue;
+				
 				try {
 					Object toSet = sourceGetter.invoke(sourceObject);
-					/*if (destinationSetter == null && TypeUtils.isAssignable(sourceGetter.getReturnType(), List.class)) {
-						// if adding field is List
-	
-						Method destinationAdder = getAdder(toClass, field);
-						List<?> objectList = (List<?>) toSet;
-						
-						// get type of List item
-						Class<?> parameterType = destinationAdder.getParameterTypes()[0];
-	
-						if (toSet != null) {
-							for (Object listItem : objectList) { // translate List item and add it via the Adder
-								destinationAdder.invoke(destinationObject, convert(listItem, sourceClass, parameterType));
-							}
-						}
-					} else*/ if (destinationSetter != null) { // if setting object or primitive type
+					if (destinationSetter != null && toSet != null) { // if setting object or primitive type
 						Class<?> parameterType = destinationSetter.getParameterTypes()[0];
 						if (TypeUtils.isInstance(toSet, parameterType)) {
 							// if toSet is castable to parameter type, set it directly

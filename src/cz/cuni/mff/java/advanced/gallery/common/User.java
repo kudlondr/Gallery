@@ -31,20 +31,21 @@ public abstract class User extends IdentifiedObject {
 	}	
 	public String getUsername() {
 		return this.username;
-	}	
+	}
 	public void setPassword(String value) {
-		try {
-			this.password = Encryptor.makeSHA1Hash(value);
-		} catch(SecurityException e) {
-			e.printStackTrace();
-		}
+		this.password = value;
 	}	
 	public String getPassword() {
 		return this.password;
 	}	
 	public void setPasswordCheck(String value) {
 		try {
-			this.passwordCheck = Encryptor.makeSHA1Hash(value);
+			if(value == null || value.isEmpty()) {
+				this.password = null;
+				return;
+			} else {
+				this.passwordCheck = Encryptor.makeSHA1Hash(value);
+			}
 		} catch(SecurityException e) {
 			e.printStackTrace();
 		}

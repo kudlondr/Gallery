@@ -1,13 +1,46 @@
 package cz.cuni.mff.java.advanced.gallery.beans;
 
+import java.util.Date;
+
 import cz.cuni.mff.java.advanced.gallery.data.UserDataManager;
+import cz.cuni.mff.java.advanced.gallery.exceptions.DatabaseException;
 import cz.cuni.mff.java.advanced.gallery.exceptions.GalleryException;
 import cz.cuni.mff.java.advanced.gallery.exceptions.RecordExistsException;
+import cz.cuni.mff.java.advanced.gallery.exceptions.SecurityException;
+import cz.cuni.mff.java.advanced.gallery.security.Encryptor;
 
 public class User extends cz.cuni.mff.java.advanced.gallery.common.User {
 	
 	private boolean loggedin = false;
 	protected boolean emailExists = false;
+	protected int showImage;
+	
+	public User() {
+		setCreatedDate(new Date());
+	}
+	
+	public int getShowImage() {
+		return showImage;
+	}
+	public void setShowImage(int shownImage) {
+		this.showImage = shownImage;
+	}
+	
+	public void setLoginPassword(String value) {
+		try {
+			if(value == null || value.isEmpty()) {
+				this.password = null;
+				return;
+			} else {
+				this.password = Encryptor.makeSHA1Hash(value);
+			}
+		} catch(SecurityException e) {
+			e.printStackTrace();
+		}
+	}
+	public String getLoginPassword() {
+		return password;
+	}
 	
 	public String create() {
 		emailExists = false;
@@ -25,9 +58,16 @@ public class User extends cz.cuni.mff.java.advanced.gallery.common.User {
 	
 	public String save() {
 		try {
-			UserDataManager.saveUser(this);
-			if(getLoggedin()) {
+			if(getPassword() != null && !getPassword().isEmpty()) {
+				if(getPassword().equals(getPasswordCheck())) {
+					UserDataManager.saveUser(this);
+				}
 				return "repeat";
+			} else {
+				UserDataManager.saveUser(this);
+				if(getLoggedin()) {
+					return "repeat";
+				}
 			}
 		} catch(RecordExistsException e) {
 			emailExists = true;
@@ -55,8 +95,8 @@ public class User extends cz.cuni.mff.java.advanced.gallery.common.User {
 	    		this.email = foundUser.getEmail();
 	    		this.id = foundUser.getId();
 	    		this.name = foundUser.getName();
-	    		//this.password = foundUser.password;
-	    		//this.passwordCheck = foundUser.passwordCheck;
+	    		//this.password = foundUser.getPassword();
+	    		//this.passwordCheck = foundUser.getPasswordCheck();
 	    		this.showemail = foundUser.getShowemail();
 	    		this.showname = foundUser.getShowname();
 	    		this.showsurname = foundUser.getShowsurname();
@@ -92,7 +132,17 @@ public class User extends cz.cuni.mff.java.advanced.gallery.common.User {
 	}
 	
 	private void clear() {
+		this.createdDate = null;
+		this.email = "";
+		this.id = -1;
+		this.name = "";
+		this.password = null;
+		this.passwordCheck = null;
+		this.showemail = true;
+		this.showname = true;
+		this.showsurname = true;
 		this.username = "";
+		this.watchlist = null;
 	}
 	
 	public boolean getEmailExists() {
@@ -103,22 +153,34 @@ public class User extends cz.cuni.mff.java.advanced.gallery.common.User {
 		this.emailExists = emailExists;
 	}
 	
-	public void addToWatch() {
+	public String addToWatch() {
+		return "";
 		//TODO
 	}
-	
-	public void removeFromWatch() {
-		//TODO
+	public String removeFromWatch(Object watchedUser) {
+		return removeFromWatch((cz.cuni.mff.java.advanced.gallery.common.User) watchedUser);
+	}
+	public String removeFromWatch(cz.cuni.mff.java.advanced.gallery.common.User watchedUser) {
+		try {
+			UserDataManager.removeFromWatchList(this, watchedUser);
+		} catch(DatabaseException e) {
+			e.printStackTrace();
+		}
+		return "repeat";
 	}
 	
 	public Message[] getMessages() {
 		//try{
 			//TODO SQL
-			return null;
+			return new Message[0];
 /*		} catch(GalleryException e) {
 			e.printStackTrace();
 		}
 		return null;*/
+	}
+	
+	public int getMessagesCount() {
+		return getMessages() == null ? 0 : getMessages().length;
 	}
 	
 	public String showDetail() {

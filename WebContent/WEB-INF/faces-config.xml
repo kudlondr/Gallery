@@ -5,19 +5,9 @@
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
     version="2.2">
 	<managed-bean>
-		<managed-bean-name>connectionTestBean</managed-bean-name>
-		<managed-bean-class>cz.cuni.mff.java.advanced.gallery.beans.ConnectionTest</managed-bean-class>
-		<managed-bean-scope>view</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
 		<managed-bean-name>imageBean</managed-bean-name>
 		<managed-bean-class>cz.cuni.mff.java.advanced.gallery.beans.Image</managed-bean-class>
 		<managed-bean-scope>view</managed-bean-scope>
-		<managed-property>
-			<property-name>user</property-name>
-			<property-class>cz.cuni.mff.java.advanced.gallery.beans.User</property-class>
-			<value>#{userBean}</value>
-		</managed-property>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>userBean</managed-bean-name>
@@ -27,11 +17,6 @@
 	<managed-bean>
 		<managed-bean-name>commentBean</managed-bean-name>
 		<managed-bean-class>cz.cuni.mff.java.advanced.gallery.beans.Comment</managed-bean-class>
-		<managed-bean-scope>view</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>messageBean</managed-bean-name>
-		<managed-bean-class>cz.cuni.mff.java.advanced.gallery.beans.Message</managed-bean-class>
 		<managed-bean-scope>view</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
@@ -85,7 +70,7 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<display-name>main.xhtml</display-name>
+		<display-name>account.xhtml</display-name>
 		<from-view-id>/main.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>createAccount</from-outcome>
@@ -109,7 +94,7 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<display-name>main.xhtml</display-name>
+		<display-name>imageUpload.xhtml</display-name>
 		<from-view-id>/main.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>uploadImage</from-outcome>
@@ -133,10 +118,10 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<display-name>main.xhtml</display-name>
+		<display-name>imageDetail.xhtml</display-name>
 		<from-view-id>/main.xhtml</from-view-id>
 		<navigation-case>
-			<from-outcome>showImageDetail</from-outcome>
+			<from-outcome>showDetail</from-outcome>
 			<to-view-id>/imageDetail.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
@@ -154,14 +139,6 @@
 		<navigation-case>
 			<from-outcome>refresh</from-outcome>
 			<to-view-id>/imageDetail.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>imageDetail.xhtml</display-name>
-		<from-view-id>/imageDetail.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>#{imageBean.user.showDetail()}</from-outcome>
-			<to-view-id>/userDetail.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
@@ -207,6 +184,30 @@
 		<navigation-case>
 			<from-outcome>logout</from-outcome>
 			<to-view-id>/main.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>account.xhtml</display-name>
+		<from-view-id>/account.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>uploadImage</from-outcome>
+			<to-view-id>/imageUpload.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>userDetail.xhtml</display-name>
+		<from-view-id>/userDetail.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>uploadImage</from-outcome>
+			<to-view-id>/imageUpload.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>imageDetail.xhtml</display-name>
+		<from-view-id>/imageDetail.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>uploadImage</from-outcome>
+			<to-view-id>/imageUpload.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<validator>

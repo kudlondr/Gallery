@@ -10,19 +10,9 @@
 			<generator class="native"/>
 		</id>
 		<many-to-one name="sender" column="SENDERID" unique="true" class="User"/>
-		<many-to-one name="reciever" column="RESPONSEID" unique="true" class="User"/>
-		<property name="type" column="TYPE"/>
 		<property name="text" column="TEXT"/>
 		<property name="createdDate" column="CREATEDDATE" type="timestamp"/>
 		<property name="hidden" column="HIDDEN"/>
-		<!-- <join table="USER_COMMENTS" optional="true" inverse="true">
-			<key column="COMMENTID"/>
-			<many-to-one name="User" column="UserId"/>
-		</join>
-		<join table="IMAGE_COMMENTS" optional="true" inverse="true">
-			<key column="COMMENTID"/>
-			<many-to-one name="Image" column="imageId"/>
-		</join>-->
 	</class>
 	<class name="Image" table="IMAGES" lazy="false">
 		<meta attribute="class-description">Picture posted by user.</meta>
@@ -30,15 +20,15 @@
 			<generator class="native"/>
 		</id>
 		<many-to-one name="owner" column="OWNERID" unique="true" class="User"/>
-		<set name="comments" table="IMAGE_COMMENTS">
-	        <key column="imageid"/>
-	        <one-to-many class="Comment"/>
+		<set name="comments" table="IMAGE_COMMENTS" lazy="false">
+	        <key column="IMAGEID"/>
+	        <many-to-many column="COMMENTID" class="Comment"/>
 	    </set>
 	    <many-to-one name="preview" column="PREVIEWID" unique="true" class="ImagePreview" not-found="ignore"/>
 		<property name="name"/>
 		<property name="createdDate" type="timestamp" not-null="true"/>
 		<property name="hidden"/>
-		<property name="data"/>
+		<property name="data" lazy="true"/> <!-- data are fetched only via ImagesServlet -->
 		<property name="description"/>
 	</class>
 	<class name="ImagePreview" table="IMAGE_PREVIEWS" lazy="false">
@@ -46,7 +36,7 @@
 		<id name="id" column="ID">
 			<generator class="native"/>
 		</id>
-		<property name="data"/>
+		<property name="data" lazy="true"/> <!-- data are fetched only via ImagesServlet -->
 	</class>
 	<class name="Message" table="MESSAGES" lazy="false">
 		<meta attribute="class-description">Message sent from user to another user.</meta>
@@ -73,7 +63,7 @@
 		<property name="showemail"/>
 		<property name="showname"/>
 		<property name="showsurname"/>
-		<set name="watchlist" table="WATCHLISTS" cascade="none" lazy="false" > <!-- user has list of other users over watchList table  -->
+		<set name="watchlist" table="WATCHLISTS" cascade="none" lazy="false"> <!-- user has list of other users over watchList table  -->
 	        <key column="BELONGSTO"/>
 	        <many-to-many column="WATCHING" class="User"/>
 	    </set>

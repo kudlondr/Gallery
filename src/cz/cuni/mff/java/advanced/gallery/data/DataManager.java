@@ -30,7 +30,7 @@ public class DataManager {
 	        session = getSession();
 	        trans = session.beginTransaction();
 	        
-	        session.save(object);
+	        session.saveOrUpdate(object);
 	
 	        trans.commit();
 	        return true;
@@ -74,18 +74,16 @@ public class DataManager {
 	
 	protected static <T> T fetch(int id, Class<T> objectClass) throws DatabaseException {
 		Session session = null;
-		Transaction trans = null;
+		Transaction tr = null;
 		try{
 			session = getSession();
-			trans = session.beginTransaction();
+			tr = session.beginTransaction();
 			Object fetched = session.load(objectClass, id);
 			T result = objectClass.cast(fetched);
 			
-			trans.commit();
-			
+			tr.commit();
 			return result;
 		} catch(HibernateException e) {
-			if(trans != null) trans.rollback();
 			throw new DatabaseException(e);
 		}
 	}

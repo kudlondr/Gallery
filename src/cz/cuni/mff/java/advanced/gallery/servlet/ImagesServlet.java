@@ -46,11 +46,14 @@ public class ImagesServlet extends HttpServlet {
 		    response.setHeader("Content-Type", getServletContext().getMimeType(image.getName()));
 	        response.setHeader("Content-Disposition", "inline; filename=\"" + image.getName() + "\"");
 	        
-	        if(image.getPreview() == null) {
-	        	return;
+	        if(request.getParameterMap().containsKey("preview")) {
+	        	if(image.getPreview() == null) {
+		        	return;
+		        }
+	        	input = new BufferedInputStream(new ByteArrayInputStream(image.getPreview().getData()));
+	        } else {
+	        	input = new BufferedInputStream(new ByteArrayInputStream(image.getData()));
 	        }
-	        
-	        input = new BufferedInputStream(new ByteArrayInputStream(image.getPreview().getData())); // Creates buffered input stream.
             output = new BufferedOutputStream(response.getOutputStream());
             byte[] buffer = new byte[8192];
             for (int length = 0; (length = input.read(buffer)) > 0;) {

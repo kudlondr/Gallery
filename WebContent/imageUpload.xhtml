@@ -4,22 +4,30 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:t="http://myfaces.apache.org/tomahawk"
-    xmlns:h="http://java.sun.com/jsf/html">
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:j="http://java.sun.com/jsp/jstl/core">
 
 <ui:composition template="/WEB-INF/templates/loginTemplate.xhtml">
     <ui:define name="content">
-        <h:form enctype="multipart/form-data">
-        	<table>
-        		<tr>
-        			<td><h:outputText value="Picture name:"/></td>
-        			<td><h:inputText value="#{imageBean.name}"/></td>
-        		</tr>
-        		<tr>
-        			<td><t:inputFileUpload value="#{imageBean.uploadedFile}" accept="image/*"/></td>
-        			<td><h:commandButton value="submit" action="#{imageBean.submit}"/></td>
-        		</tr>
-        	</table>
-        </h:form>
+    	<j:if test="#{userBean.loggedin}">
+    		<h:form enctype="multipart/form-data">
+	        	<table>
+	        		<tr>
+	        			<td><h:outputText value="Picture name:"/></td>
+	        			<td><h:inputText value="#{imageBean.name}"/></td>
+	        		</tr>
+	        		<tr>
+	        			<td><t:inputFileUpload value="#{imageBean.uploadedImage}" accept="image/*"/></td>
+	        		</tr>
+	        		<tr>
+	        			<td><t:inputFileUpload value="#{imageBean.uploadedImagePreview}" accept="image/*"/></td>
+	        		</tr>
+	        		<tr>
+	        			<td><h:commandButton value="submit" action="#{imageBean.submit(userBean)}"/></td>
+	        		</tr>
+	        	</table>
+	        </h:form>
+    	</j:if>
     </ui:define>
 </ui:composition>
 </html>

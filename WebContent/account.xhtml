@@ -17,7 +17,7 @@
 	            </tr>
 	            <tr>
 	            	<td><h:outputText value="Password"></h:outputText></td>
-	               	<td><h:inputSecret value="#{userBean.password}"/></td>
+	               	<td><h:inputSecret value="#{userBean.loginPassword}"/></td>
 	            </tr>
 	            <tr>
 	            	<td><h:outputText value="Repeat password"></h:outputText></td>
@@ -61,11 +61,11 @@
 	        	<j:forEach var="watch" items="#{userBean.watchlist}">
 	    			<tr>
 	    				<td>
-	    					<h:outputText value="${watch.name}"/>
+	    					<h:outputText value="${watch.username}"/>
 	    				</td>
 	    				<td>
 	    					<h:form>
-					            <h:commandButton value="Remove from watch" action="#{watch.removeFromWatch}"/>
+					            <h:commandButton value="Remove from watch" action="#{userBean.removeFromWatch(watch)}"/>
 				            </h:form>
 	    				</td>
 	    			</tr>
