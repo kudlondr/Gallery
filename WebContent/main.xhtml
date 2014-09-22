@@ -3,30 +3,39 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:j="http://java.sun.com/jsp/jstl/core"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html">
 
 <ui:composition template="/WEB-INF/templates/loginTemplate.xhtml">
 	<ui:debug />
-    <ui:define name="content">
-    	<table>
-    		<j:forEach var="imageItem" items="#{imagesContainerBean.images}">
-    			<tr>
-    				<td>
-    					<h:form>
-    						<h:commandLink action="#{imageItem.goToDetail(userBean)}">
-	   							<p>
-	   								<h:outputText value="#{imageItem.name}"/>
-	   								<h:outputText value=" by "/>
-	   								<h:outputText value="#{imageItem.owner.username}"/>
-	   							</p>
-	   							<img src="/Gallery/faces/images/${imageItem.id}?preview"/>
-   							</h:commandLink>
+	<ui:define name="content">
+		<table>
+			<j:forEach var="imageItem" items="#{imageBean.currentImages}">
+				<tr>
+					<td>
+						<p>
+							<h:form>
+								<h:commandLink action="#{imageItem.goToDetail(userBean)}">
+									<h:outputText value="#{imageItem.name}" />
+								</h:commandLink>
+							</h:form>
+							<h:outputText value=" by " />
+							<h:form>
+								<h:commandLink
+									action="#{userBean.goToDetail(imageItem.owner.id)}">
+									<h:outputText value="#{imageItem.owner.username}" />
+								</h:commandLink>
+							</h:form>
+						</p>
+						<h:form>
+							<h:commandLink action="#{imageItem.goToDetail(userBean)}">
+								<img src="/Gallery/faces/images/${imageItem.id}?preview" />
+							</h:commandLink>
 						</h:form>
-    				</td>
-    			</tr>
-    		</j:forEach>
-    	</table>
-    </ui:define>
+					</td>
+				</tr>
+			</j:forEach>
+		</table>
+	</ui:define>
 </ui:composition>
 </html>

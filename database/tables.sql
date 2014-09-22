@@ -41,11 +41,9 @@ create table COMMENTS (
 
 create table MESSAGES (
 	id int not null auto_increment,
-	responseId int,
-	createdBy int not null,
-	belongsTo int not null,
+	imageid int not null,
+	recieverid int not null,
 	createdDate timestamp not null default sysdate,
-	text clob,
 	read boolean not null default false,
 	
 	constraint I_MESSAGE_ID primary key (id)

@@ -19,7 +19,14 @@ public abstract class User extends IdentifiedObject {
 	protected boolean showsurname;
 	
 	protected Set<User> watchlist;
+	protected Set<Message> messages;
 	
+	public Set<Message> getMessages() {
+		return messages;
+	}
+	public void setMessages(Set<Message> messages) {
+		this.messages = messages;
+	}
 	public void setWatchlist(Set<User> watchlist) {
 		this.watchlist = watchlist;
 	}
@@ -41,7 +48,7 @@ public abstract class User extends IdentifiedObject {
 	public void setPasswordCheck(String value) {
 		try {
 			if(value == null || value.isEmpty()) {
-				this.password = null;
+				this.passwordCheck = null;
 				return;
 			} else {
 				this.passwordCheck = Encryptor.makeSHA1Hash(value);
@@ -97,5 +104,8 @@ public abstract class User extends IdentifiedObject {
 	}	
 	public boolean getShowsurname() {
 		return this.showsurname;
+	}
+	public boolean equals(Object u) {
+		return u != null && u instanceof cz.cuni.mff.java.advanced.gallery.common.User && getId() == ((cz.cuni.mff.java.advanced.gallery.common.User)u).getId();
 	}
 }

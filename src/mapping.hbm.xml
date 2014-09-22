@@ -20,7 +20,7 @@
 			<generator class="native"/>
 		</id>
 		<many-to-one name="owner" column="OWNERID" unique="true" class="User"/>
-		<set name="comments" table="IMAGE_COMMENTS" lazy="false">
+		<set name="comments" table="IMAGE_COMMENTS" lazy="false" order-by="CREATEDDATE desc">
 	        <key column="IMAGEID"/>
 	        <many-to-many column="COMMENTID" class="Comment"/>
 	    </set>
@@ -43,11 +43,9 @@
 		<id name="id">
 			<generator class="native"/>
 		</id>
-		<many-to-one name="sender" column="SENDERID" unique="true" class="User"/>
-		<many-to-one name="reciever" column="RESPONSEID" unique="true" class="User"/>
+		<many-to-one name="image" column="IMAGEID" unique="true" class="Image"/>
+		<many-to-one name="reciever" column="RECIEVERID" unique="true" class="User"/>
 		<property name="createdDate" type="timestamp" not-null="true"/>
-		<property name="text"/>
-		<many-to-one name="response" column="RESPONSEID" unique="true" class="Message" insert="false" update="false"/>
 		<property name="read"/>
 	</class>
 	<class name="User" table="USERS" lazy="false">
@@ -55,6 +53,7 @@
 		<id name="id">
 			<generator class="native"/>
 		</id>
+		<property name="createdDate" type="timestamp" not-null="true"/>
 		<property name="username"/>
 		<property name="password"/>
 		<property name="email"/>
@@ -63,9 +62,13 @@
 		<property name="showemail"/>
 		<property name="showname"/>
 		<property name="showsurname"/>
-		<set name="watchlist" table="WATCHLISTS" cascade="none" lazy="false"> <!-- user has list of other users over watchList table  -->
+		<set name="watchlist" table="WATCHLISTS" lazy="false"> <!-- user has list of other users over watchList table  -->
 	        <key column="BELONGSTO"/>
-	        <many-to-many column="WATCHING" class="User"/>
+	        <many-to-many column="WATCHING" class="User" lazy="false"/>
+	    </set>
+	    <set name="messages" table="MESSAGES" lazy="false" fetch="select" where="read=false">
+	        <key column="RECIEVERID"/>
+	        <many-to-many class="User" lazy="false"/>
 	    </set>
 	</class>
 </hibernate-mapping>

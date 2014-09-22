@@ -11,15 +11,78 @@
 <ui:composition template="/WEB-INF/templates/loginTemplate.xhtml">
 	<ui:debug />
     <ui:define name="content">
+    	<h:inputHidden value="#{userDetail.initUserDetail(userBean.showUser)}"/>
+    	<h:outputText value="#{userDetail.username}'s page"/>
+    	<h:outputText value="#{userBean.id != userDetail.id}"/>
+    	<h:outputText value="#{userBean.loggedin and not(userBean.id eq userDetail.id)}"/>
+    		<h:form>
+   				<h:commandButton rendered="#{userBean.loggedin and not(userBean.id eq userDetail.id) and userBean.isNotWatching(userDetail)}" value="Add to watch" action="#{userBean.addToWatch(userDetail)}"/>
+   				<h:commandButton rendered="#{userBean.loggedin and not(userBean.id eq userDetail.id) and not userBean.isNotWatching(userDetail)}" value="Remove from watch" action="#{userBean.removeFromWatch(userDetail)}"/>
+    		</h:form>
     	<table>
-    		<j:forEach var="image" items="#{imagesContainerBean.images}">
+    		<j:forEach var="imageItem" items="#{userDetail.getImages(userBean.showUser)}">
     			<tr>
     				<td>
-    					<h:commandLink action="imageDetail">
-    						<img src="/Gallery/faces/images/${image.id}"/>
-    					</h:commandLink>
+    					<h:form>
+							<h:commandLink action="#{imageItem.goToDetail(userBean)}">
+								<h:outputText value="#{imageItem.name}" />
+							</h:commandLink>
+						</h:form>
+    					<h:form>
+							<h:commandLink action="#{imageItem.goToDetail(userBean)}">
+								<img src="/Gallery/faces/images/${imageItem.id}?preview" />
+							</h:commandLink>
+						</h:form>
     				</td>
     			</tr>
+    		</j:forEach>
+    	</table>
+    	<table>
+    		<j:forEach var="comment" items="#{userDetail.getCommentsArray(userBean.showUser)}">
+    			<j:choose>
+    				<j:when test="#{not comment.hidden}">
+		    			<tr>
+			    			<td>
+			    				<h:form>
+									<h:commandLink action="#{userDetail.goToDetail(comment.sender.id)}">
+										<h:outputText value="#{comment.sender.username}"/>
+									</h:commandLink>
+								</h:form>
+			    				<h:outputText value="#{comment.createdDate}">
+			    					<f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+			    				</h:outputText>
+			    				<h:outputText value="#{comment.text}"/>
+			    				
+			    				<j:if test="#{imageBean.owner.id eq userBean.id}">
+			    					<h:form>
+				    					<h:commandButton value="Hide comment" action="#{imageBean.hideComment(comment)}"/>
+				    				</h:form>	
+			    				</j:if>
+			    			</td>
+			    		</tr>
+		    		</j:when>
+		    		<j:otherwise>
+		    			<j:if test="#{imageBean.owner.id eq userBean.id}">
+		    				<tr>
+		    					<td>
+		    						<h:form>
+										<h:commandLink action="#{userDetail.goToDetail(comment.sender.id)}">
+											<h:outputText value="#{comment.sender.username}"/>
+										</h:commandLink>
+									</h:form>
+				    				<h:outputText value="#{comment.createdDate}">
+				    					<f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+				    				</h:outputText>
+				    				<h:outputText value="#{comment.text}"/>
+				    				
+			    					<h:form>
+				    					<h:commandButton value="Unhide comment" action="#{imageBean.unhideComment(comment)}"/>
+				    				</h:form>
+				    			</td>
+				    		</tr>
+		    			</j:if>
+		    		</j:otherwise>
+	    		</j:choose>
     		</j:forEach>
     	</table>
     </ui:define>

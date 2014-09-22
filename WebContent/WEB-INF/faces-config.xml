@@ -20,17 +20,11 @@
 		<managed-bean-scope>view</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
-		<managed-bean-name>imagesContainerBean</managed-bean-name>
-		<managed-bean-class>cz.cuni.mff.java.advanced.gallery.beans.ImagesContainer</managed-bean-class>
-		<managed-bean-scope>view</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>imageCommentsBean</managed-bean-name>
-		<managed-bean-class>cz.cuni.mff.java.advanced.gallery.beans.ImageComments</managed-bean-class>
+		<managed-bean-name>userDetail</managed-bean-name>
+		<managed-bean-class>cz.cuni.mff.java.advanced.gallery.beans.User</managed-bean-class>
 		<managed-bean-scope>view</managed-bean-scope>
 	</managed-bean>
 	<navigation-rule>
-		<display-name>main.xhtml</display-name>
 		<from-view-id>/main.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>failure</from-outcome>
@@ -38,7 +32,6 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<display-name>main.xhtml</display-name>
 		<from-view-id>/main.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>success</from-outcome>
@@ -46,7 +39,6 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<display-name>account.xhtml</display-name>
 		<from-view-id>/account.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>repeat</from-outcome>
@@ -54,7 +46,6 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<display-name>main.xhtml</display-name>
 		<from-view-id>/main.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>loginFailure</from-outcome>
@@ -62,7 +53,6 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<display-name>main.xhtml</display-name>
 		<from-view-id>/main.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>loginSuccess</from-outcome>
@@ -70,7 +60,6 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<display-name>account.xhtml</display-name>
 		<from-view-id>/main.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>createAccount</from-outcome>
@@ -78,7 +67,6 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<display-name>account.xhtml</display-name>
 		<from-view-id>/account.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>login</from-outcome>
@@ -86,7 +74,6 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<display-name>main.xhtml</display-name>
 		<from-view-id>/main.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>logout</from-outcome>
@@ -94,7 +81,6 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<display-name>imageUpload.xhtml</display-name>
 		<from-view-id>/main.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>uploadImage</from-outcome>
@@ -102,7 +88,6 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<display-name>imageUpload.xhtml</display-name>
 		<from-view-id>/imageUpload.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>failure</from-outcome>
@@ -110,7 +95,6 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<display-name>imageUpload.xhtml</display-name>
 		<from-view-id>/imageUpload.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>success</from-outcome>
@@ -118,15 +102,13 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<display-name>imageDetail.xhtml</display-name>
 		<from-view-id>/main.xhtml</from-view-id>
 		<navigation-case>
-			<from-outcome>showDetail</from-outcome>
+			<from-outcome>showImageDetail</from-outcome>
 			<to-view-id>/imageDetail.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<display-name>imageDetail.xhtml</display-name>
 		<from-view-id>/imageDetail.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>home</from-outcome>
@@ -134,7 +116,6 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<display-name>imageDetail.xhtml</display-name>
 		<from-view-id>/imageDetail.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>refresh</from-outcome>
@@ -142,36 +123,19 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<display-name>userDetail.xhtml</display-name>
 		<from-view-id>/userDetail.xhtml</from-view-id>
 		<navigation-case>
+			<from-outcome>manageAccount</from-outcome>
 			<to-view-id>/account.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<display-name>imageUpload.xhtml</display-name>
 		<from-view-id>/imageUpload.xhtml</from-view-id>
 		<navigation-case>
 			<to-view-id>/account.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-	<!-- <navigation-rule>
-		<display-name>main.xhtml</display-name>
-		<from-view-id>/main.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>manageAccount</from-outcome>
-			<to-view-id>/account.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>-->
 	<navigation-rule>
-		<display-name>imageDetail.xhtml</display-name>
-		<from-view-id>/imageDetail.xhtml</from-view-id>
-		<navigation-case>
-			<to-view-id>/account.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>main.xhtml</display-name>
 		<from-view-id>/main.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>manageAccount</from-outcome>
@@ -179,7 +143,6 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<display-name>account.xhtml</display-name>
 		<from-view-id>/account.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>logout</from-outcome>
@@ -187,7 +150,6 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<display-name>account.xhtml</display-name>
 		<from-view-id>/account.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>uploadImage</from-outcome>
@@ -195,7 +157,6 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<display-name>userDetail.xhtml</display-name>
 		<from-view-id>/userDetail.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>uploadImage</from-outcome>
@@ -203,11 +164,45 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<display-name>imageDetail.xhtml</display-name>
 		<from-view-id>/imageDetail.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>uploadImage</from-outcome>
 			<to-view-id>/imageUpload.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/main.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>showUserDetail</from-outcome>
+			<to-view-id>/userDetail.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/imageDetail.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>manageAccount</from-outcome>
+			<to-view-id>/account.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/imageUpload.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>manageAccount</from-outcome>
+			<to-view-id>/account.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/imageDetail.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>showUserDetail</from-outcome>
+			<to-view-id>/userDetail.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/userDetail.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>showImageDetail</from-outcome>
+			<to-view-id>/imageDetail.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<validator>
@@ -215,5 +210,4 @@
 		<validator-id>cz.cuni.mff.java.advanced.gallery.validators.LoginChecker</validator-id>
 		<validator-class>cz.cuni.mff.java.advanced.gallery.validators.LoginChecker</validator-class>
 	</validator>
-
 </faces-config>

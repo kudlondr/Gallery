@@ -3,6 +3,7 @@ package cz.cuni.mff.java.advanced.gallery.beans;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,12 +24,15 @@ public class Image extends cz.cuni.mff.java.advanced.gallery.common.Image {
 	private UploadedFile uploadedImagePreview;
 	private String commentText;
 	private boolean inited = false;
+	private Image[] images;
 		
 	public Image() {
 		setCreatedDate(new Date());
 	}
 	
-	public void init(int imageId) {
+	public void initImageDetail(int imageId) {
+		if(inited)
+			return;
 		try {
 			inited = true;
 			cz.cuni.mff.java.advanced.gallery.common.Image image = ImageDataManager.getImage(imageId);
@@ -103,7 +107,7 @@ public class Image extends cz.cuni.mff.java.advanced.gallery.common.Image {
 	
 	public String goToDetail(User user) {
 		user.setShowImage(getId());
-		return "showDetail";
+		return "showImageDetail";
 	}
 	
 	public void setCommentText(String value) {
@@ -144,12 +148,26 @@ public class Image extends cz.cuni.mff.java.advanced.gallery.common.Image {
 		return "refresh";
 	}
 	public Comment[] getCommentsArray(int imageId) {
-		if(!inited)
-			init(imageId);
+		initImageDetail(imageId);
 		Comment[] arr = new Comment[getComments().size()];
 		return getComments().toArray(arr);
 	}
-	public int getCommentsCount() {
-		return getComments().size();
+	
+	public Image[] getCurrentImages() {
+		if(images == null || images.length == 0) {
+			try {
+				
+				Collection<cz.cuni.mff.java.advanced.gallery.common.Image> imagesCommonCol = ImageDataManager.getMostCurrentImagesList(10);
+				Collection<Image> imagesCol = cz.cuni.mff.java.advanced.gallery.util.ModelMapper.convert(imagesCommonCol, Image.class);
+				
+				images = new Image[imagesCol.size()];
+				images = imagesCol.toArray(images);
+				
+			} catch(GalleryException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return this.images;
 	}
 }

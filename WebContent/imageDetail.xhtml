@@ -3,17 +3,18 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:j="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html">
 
 <ui:composition template="/WEB-INF/templates/loginTemplate.xhtml">
     <ui:define name="content">
-    	<h:inputHidden value="#{imageBean.init(userBean.showImage)}"/>
+    	<h:inputHidden value="#{imageBean.initImageDetail(userBean.showImage)}"/>
     	<div>
 	    	<h:outputText value="#{imageBean.name}"/>
 			<h:outputText value=" by "/>
 			<h:form>
-				<h:commandLink action="#{imageBean.user.showDetail}">
+				<h:commandLink action="#{userDetail.goToDetail(imageBean.owner.id)}">
 					<h:outputText value="#{imageBean.owner.username}"/>
 				</h:commandLink>
 			</h:form>
@@ -37,47 +38,19 @@
 	    			</td>
 	    		</tr>
 	    	</j:if>
-	    	<ui:param name="max" value="#{imageBean.commentsCount}"></ui:param>
-	    	
-	    	<!-- <ui:repeat value="#{document.instanceList}" var="instance">
-		        <a:outputPanel rendered="#{!hideTypes.contains(instance.documentInstanceType.mimeType)}">
-		            <up:mimeTypeIcon type="#{instance.documentInstanceType.mimeType}"
-		                icon="#{instance.documentInstanceType.iconPath}"
-		                key="#{instance.instanceKey}" referenced="false"/>
-		                
-		                
-		                
-		                
-		                
-		                
-		                
-		                
-		                
-		                
-		                
-		                TODO jeste to chce vracet vzdy sporadane podle createdDate
-		                
-		                
-		                
-		                
-		                
-		                
-		                
-		                
-		                
-		                
-		                
-		        </a:outputPanel>
-		     </ui:repeat>-->
-		     
-	    	<ui:repeat var="comment" value="#{imageBean.getCommentsArray(userBean.showImage)}">
+	    	<j:forEach var="comment" items="#{imageBean.getCommentsArray(userBean.showImage)}">
     			<j:choose>
     				<j:when test="#{not comment.hidden}">
 		    			<tr>
 			    			<td>
-			    				<h:outputText value="#{comment.hidden}"/>
-			    				<h:outputText value="#{comment.sender.username}"/>
-			    				<h:outputText value="#{comment.createdDate}"/>
+			    				<h:form>
+									<h:commandLink action="#{userDetail.goToDetail(comment.sender.id)}">
+										<h:outputText value="#{comment.sender.username}"/>
+									</h:commandLink>
+								</h:form>
+			    				<h:outputText value="#{comment.createdDate}">
+			    					<f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+			    				</h:outputText>
 			    				<h:outputText value="#{comment.text}"/>
 			    				
 			    				<j:if test="#{imageBean.owner.id eq userBean.id}">
@@ -92,8 +65,14 @@
 		    			<j:if test="#{imageBean.owner.id eq userBean.id}">
 		    				<tr>
 		    					<td>
-				    				<h:outputText value="#{comment.sender.username}"/>
-				    				<h:outputText value="#{comment.createdDate}"/>
+		    						<h:form>
+										<h:commandLink action="#{userDetail.goToDetail(comment.sender.id)}">
+											<h:outputText value="#{comment.sender.username}"/>
+										</h:commandLink>
+									</h:form>
+				    				<h:outputText value="#{comment.createdDate}">
+				    					<f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+				    				</h:outputText>
 				    				<h:outputText value="#{comment.text}"/>
 				    				
 			    					<h:form>
@@ -104,7 +83,7 @@
 		    			</j:if>
 		    		</j:otherwise>
 	    		</j:choose>
-    		</ui:repeat>
+    		</j:forEach>
     	</table>
     </ui:define>
 </ui:composition>

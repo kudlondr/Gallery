@@ -68,11 +68,7 @@ public class ImageDataManager extends DataManager {
 	}
 	
 	public static cz.cuni.mff.java.advanced.gallery.common.Image getImage(int imageIdentity) throws DatabaseException {
-		try {
-			return fetch(imageIdentity, Image.class);
-		} catch(Exception e) {
-			throw new DatabaseException(e);
-		}
+		return fetch(imageIdentity, Image.class);
 	}
 	
 	public static void hideImage(cz.cuni.mff.java.advanced.gallery.common.Image image) throws DatabaseException {
@@ -97,7 +93,6 @@ public class ImageDataManager extends DataManager {
 
 	public static boolean addComment(cz.cuni.mff.java.advanced.gallery.common.Image image, cz.cuni.mff.java.advanced.gallery.common.Comment comment) throws DatabaseException {
 		Comment modelComment = convert(comment, Comment.class);
-		Image modelImage = convert(image, Image.class);
 		
 		Session session = null;
 		Transaction tr = null;
@@ -107,8 +102,9 @@ public class ImageDataManager extends DataManager {
 	        
 	        session.save(modelComment);
 	        
-	        modelImage.getComments().add(modelComment);
-	        session.saveOrUpdate(modelImage);
+	        Image imageDB = (Image) session.load(Image.class, image.getId());
+	        imageDB.getComments().add(modelComment);
+	        session.saveOrUpdate(imageDB);
 	        
 	        tr.commit();
 	        
@@ -116,6 +112,32 @@ public class ImageDataManager extends DataManager {
 	        return true;
 		} catch(HibernateException e) {
 			tr.rollback();
+			throw new DatabaseException(e);
+		}
+	}
+
+
+	public static Collection<cz.cuni.mff.java.advanced.gallery.common.Image> getImagesByUser(int userId) throws DatabaseException {
+		Session session = null;
+		Transaction tr = null;
+		try {
+	        session = getSession();
+	        tr = session.beginTransaction();
+	        
+	        SQLQuery query = session.createSQLQuery("select * from (select * from IMAGES order by CREATEDDATE desc) where ownerid <= :userid");
+	        query.setParameter("userid", userId);
+	        query.addEntity(Image.class);
+	        
+	        List<?> queryResult = query.list();
+	        Collection<cz.cuni.mff.java.advanced.gallery.common.Image> images = new ArrayList<cz.cuni.mff.java.advanced.gallery.common.Image>();
+	        for(Object resultRecord : queryResult) {
+	        	images.add((Image) resultRecord);
+	        }
+	        tr.commit();
+	        return images;
+		} catch(HibernateException e) {
+			if(tr != null)
+				tr.rollback();
 			throw new DatabaseException(e);
 		}
 	}
