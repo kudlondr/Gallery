@@ -12,6 +12,9 @@
     <ui:define name="content">
     	<!-- Messages list -->
     	<table>
+    		<j:if test="#{userBean.getMessagesCount() eq 0}">
+    			<h:outputText value="No messages"/>
+    		</j:if>
     		<j:forEach var="message" items="#{userBean.getMessages()}">
     			<tr>
     				<td>
@@ -19,21 +22,31 @@
     						<tr><td><h:outputText value="${message.createdDate}"/></td></tr>
     						<tr>
     							<td>From:</td>
-    							<td><h:outputText value="${message.sender}"/></td>
+    							<td>
+	    							<h:form>
+										<h:commandLink action="#{userBean.goToDetail(message.image.owner.id)}">
+											<h:outputText value="#{message.image.owner.username}"/>
+										</h:commandLink>
+									</h:form>
+								</td>
     						</tr>
     						<tr>
-    							<td>To:</td>
-    							<td><h:outputText value="${message.reciever}"/></td>
+    							<td>Name:</td>
+    							<td><h:outputText value="${message.image.name}"/></td>
     						</tr>
-    						<j:if test="${message.createdBy} != #{userBean.id}">
-    							<tr><td><h:form><h:commandButton value="Respond" action="${message.respond()}"/></h:form></td></tr>
-    						</j:if>
-    						<tr><td><br/></td></tr> <!-- empty line -->
-    						<tr><td><h:form><h:commandButton value="Remove" action="${message.remove()}"/></h:form></td></tr>
+    						<tr>
+    							<td><h:form>
+		    						<h:commandButton action="#{messageBean.remove(userBean, message)}" value="Remove"/>
+								</h:form></td>
+    						</tr>
+    						<tr>
+    							<td><h:form>
+		    						<h:commandLink action="#{message.image.goToDetail(userBean)}">
+										<img src="/Gallery/faces/images/${message.image.id}?preview" />
+									</h:commandLink>
+								</h:form></td>
+							</tr>
     					</table>
-    				</td>
-    				<td>
-    					<h:outputText value="${message.text}"/>
     				</td>
     			</tr>
     		</j:forEach>

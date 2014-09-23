@@ -17,10 +17,16 @@
 	        			<td><h:inputText value="#{imageBean.name}"/></td>
 	        		</tr>
 	        		<tr>
+	        			<td><h:outputText value="Full image:"/></td>
 	        			<td><t:inputFileUpload value="#{imageBean.uploadedImage}" accept="image/*"/></td>
 	        		</tr>
 	        		<tr>
+	        			<td><h:outputText value="Preview image:"/></td>
 	        			<td><t:inputFileUpload value="#{imageBean.uploadedImagePreview}" accept="image/*"/></td>
+	        		</tr>
+	        		<tr>
+	        			<td>Image commentary</td>
+	        			<td><h:inputTextarea value="#{imageBean.description}"/></td>
 	        		</tr>
 	        		<tr>
 	        			<td><h:commandButton value="submit" action="#{imageBean.submit(userBean)}"/></td>

@@ -86,7 +86,7 @@ public class User extends cz.cuni.mff.java.advanced.gallery.common.User {
 				|| !getPassword().equals(getPasswordCheck())
 				|| getEmail() == null || getEmail().isEmpty()) {
 			
-			return "repeat";
+			return "refresh";
 		} else {
 			return save();
 		}
@@ -98,19 +98,19 @@ public class User extends cz.cuni.mff.java.advanced.gallery.common.User {
 				if(getPassword().equals(getPasswordCheck())) {
 					UserDataManager.saveUser(this);
 				}
-				return "repeat";
+				return "refresh";
 			} else {
 				UserDataManager.saveUser(this);
 				if(getLoggedin()) {
-					return "repeat";
+					return "refresh";
 				}
 			}
 		} catch(RecordExistsException e) {
 			emailExists = true;
-			return "repeat";
+			return "refresh";
 		} catch(GalleryException e) {
 			e.printStackTrace();
-			return "repeat";
+			return "refresh";
 		}
 		return "login";
 	}
@@ -141,15 +141,15 @@ public class User extends cz.cuni.mff.java.advanced.gallery.common.User {
     private void loadUser(cz.cuni.mff.java.advanced.gallery.common.User user) {
 		this.createdDate = user.getCreatedDate();
 		this.email = user.getEmail();
+		this.showemail = user.getShowemail();
 		this.id = user.getId();
 		this.name = user.getName();
-		//this.password = foundUser.getPassword();
-		//this.passwordCheck = foundUser.getPasswordCheck();
-		this.showemail = user.getShowemail();
 		this.showname = user.getShowname();
+		this.surname = user.getSurname();
 		this.showsurname = user.getShowsurname();
 		this.username = user.getUsername();
 		this.watchlist = user.getWatchlist();
+		this.messages = user.getMessages();
     }
 
 	public boolean getLoggedin() {
@@ -209,7 +209,7 @@ public class User extends cz.cuni.mff.java.advanced.gallery.common.User {
 		} catch(DatabaseException e) {
 			e.printStackTrace();
 		}
-		return "repeat";
+		return "refresh";
 	}
 	public String removeFromWatch(User watchedUser) {
 		try {
@@ -217,7 +217,7 @@ public class User extends cz.cuni.mff.java.advanced.gallery.common.User {
 		} catch(DatabaseException e) {
 			e.printStackTrace();
 		}
-		return "repeat";
+		return "refresh";
 	}
 	
 	public int getMessagesCount() {

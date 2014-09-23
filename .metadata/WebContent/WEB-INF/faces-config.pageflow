@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" comment="" id="pf13785675016220" configfile="/Gallery/WebContent/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="main.xhtml" x="770" y="381" id="pf13785677725053" referenceLink="//@navigationRule.21/@fromViewId|" outlinks="pf13785899490556 pf13785899490557 pf13797936871511 pf13797936871512 pf13794449657830 pf13797942904273 pf13798600780920 pf13799608496570 pf14099088853382 pf14113793622860" inlinks="pf13785899490556 pf13785899490557 pf13797936871511 pf13797936871512 pf13794454338603 pf13797942904273 pf13798600780921 pf13799608496571 pf14112483460640" path="/main.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="account.xhtml" x="408" y="408" id="pf13794449657832" referenceLink="//@navigationRule.23/@navigationCase.0/@toViewId|" outlinks="pf13794454338604 pf13794454338603 pf14112483460640 pf14113253235950" inlinks="pf13794449657830 pf13794454338604 pf13800507124001 pf13800507124003 pf14099088853382 pf14099068964091 pf14113793622861" path="/account.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="imageUpload.xhtml" x="338" y="583" id="pf13798600780922" referenceLink="//@navigationRule.23/@fromViewId|" outlinks="pf13798600780923 pf13798600780921 pf13800507124003 pf14113793622861" inlinks="pf13798600780920 pf13798600780923 pf14113253235950 pf14113253235951 pf14113253235952" path="/imageUpload.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="imageDetail.xhtml" x="900" y="518" id="pf13799608496572" referenceLink="//@navigationRule.24/@fromViewId|" outlinks="pf13799608496571 pf13799608496573 pf14113253235952 pf14099068964091 pf14113793622862" inlinks="pf13799608496570 pf13799608496573 pf14113969245443" path="/imageDetail.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="userDetail.xhtml" x="672" y="624" id="pf13800507124155" referenceLink="//@navigationRule.24/@navigationCase.0/@toViewId|" outlinks="pf13800507124001 pf14113253235951 pf14113969245443" inlinks="pf14113793622860 pf14113793622862" path="/userDetail.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="main.xhtml" x="770" y="381" id="pf13785677725053" referenceLink="//@navigationRule.32/@fromViewId|" outlinks="pf13785899490556 pf13785899490557 pf13797936871511 pf13797936871512 pf13794449657830 pf13797942904273 pf13798600780920 pf13799608496570 pf14099088853382 pf14113793622860 pf141141889108811" inlinks="pf13785899490556 pf13785899490557 pf13797936871511 pf13797936871512 pf13794454338603 pf13797942904273 pf13798600780921 pf13799608496571 pf14112483460640 pf14114138877444" path="/main.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="account.xhtml" x="408" y="408" id="pf13794449657832" referenceLink="//@navigationRule.33/@fromViewId|" outlinks="pf13794454338604 pf13794454338603 pf14112483460640 pf14113253235950 pf141141889108812 pf141142961205017" inlinks="pf13794449657830 pf13794454338604 pf13800507124001 pf13800507124003 pf14099088853382 pf14099068964091 pf14113793622861 pf14114138877445" path="/account.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="imageUpload.xhtml" x="360" y="619" id="pf13798600780922" referenceLink="//@navigationRule.36/@fromViewId|" outlinks="pf13798600780923 pf13798600780921 pf13800507124003 pf14113793622861 pf141141889108813 pf141142961205018" inlinks="pf13798600780920 pf13798600780923 pf14113253235950 pf14113253235951 pf14113253235952 pf14114138877446" path="/imageUpload.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="imageDetail.xhtml" x="900" y="540" id="pf13799608496572" referenceLink="//@navigationRule.35/@fromViewId|" outlinks="pf13799608496571 pf13799608496573 pf14113253235952 pf14099068964091 pf14113793622862 pf141141889108814" inlinks="pf13799608496570 pf13799608496573 pf14113969245443 pf14114138877447" path="/imageDetail.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="userDetail.xhtml" x="672" y="492" id="pf13800507124155" referenceLink="//@navigationRule.34/@fromViewId|" outlinks="pf13800507124001 pf14113253235951 pf14113969245443 pf141141889108815 pf141142929083516" inlinks="pf14113793622860 pf14113793622862 pf14114138877448 pf141142929083516 pf141142961205018 pf141142961205017" path="/userDetail.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="messages.xhtml" x="829" y="684" id="pf14114138877449" referenceLink="//@navigationRule.36/@navigationCase.0/@toViewId|" outlinks="pf14114138877447 pf141141388774410 pf14114138877444 pf14114138877445 pf14114138877448 pf14114138877446" inlinks="pf141141388774410 pf141141889108811 pf141141889108812 pf141141889108815 pf141141889108814 pf141141889108813" path="/messages.xhtml"/>
   <links id="pf13794449657830" target="pf13794449657832" source="pf13785677725053" outcome="createAccount">
     <bendPoints d1Width="179" d1Height="-147" d2Width="-153" d2Height="21"/>
   </links>
@@ -32,7 +33,7 @@
     <bendPoints d1Width="-94" d1Height="-66" d2Width="-94" d2Height="-66"/>
     <bendPoints d1Width="-94" d2Width="-94"/>
   </links>
-  <links id="pf13794454338604" target="pf13794449657832" source="pf13794449657832" outcome="repeat">
+  <links id="pf13794454338604" target="pf13794449657832" source="pf13794449657832" outcome="refresh">
     <bendPoints d1Height="-36" d2Height="-36"/>
     <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
     <bendPoints d1Width="-64" d2Width="-64"/>
@@ -52,7 +53,7 @@
     <bendPoints d1Width="-184" d1Height="-156" d2Width="-184" d2Height="-156"/>
     <bendPoints d1Width="-184" d2Width="-184"/>
   </links>
-  <links id="pf13798600780923" target="pf13798600780922" source="pf13798600780922" outcome="failure">
+  <links id="pf13798600780923" target="pf13798600780922" source="pf13798600780922" outcome="refresh">
     <bendPoints d1Height="-36" d2Height="-36"/>
     <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
     <bendPoints d1Width="-64" d2Width="-64"/>
@@ -67,4 +68,26 @@
   <links id="pf14113793622861" target="pf13794449657832" source="pf13798600780922" outcome="manageAccount"/>
   <links id="pf14113793622862" target="pf13800507124155" source="pf13799608496572" outcome="showUserDetail"/>
   <links id="pf14113969245443" target="pf13799608496572" source="pf13800507124155" outcome="showImageDetail"/>
+  <links id="pf14114138877447" target="pf13799608496572" source="pf14114138877449" outcome="showImageDetail"/>
+  <links id="pf141141388774410" target="pf14114138877449" source="pf14114138877449" outcome="refresh">
+    <bendPoints d1Height="-36" d2Height="-36"/>
+    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
+    <bendPoints d1Width="-64" d2Width="-64"/>
+  </links>
+  <links id="pf14114138877444" target="pf13785677725053" source="pf14114138877449" outcome="logout"/>
+  <links id="pf14114138877445" target="pf13794449657832" source="pf14114138877449" outcome="manageAccount"/>
+  <links id="pf14114138877448" target="pf13800507124155" source="pf14114138877449" outcome="showUserDetail"/>
+  <links id="pf14114138877446" target="pf13798600780922" source="pf14114138877449" outcome="uploadImage"/>
+  <links id="pf141141889108811" target="pf14114138877449" source="pf13785677725053" outcome="showMessages"/>
+  <links id="pf141141889108812" target="pf14114138877449" source="pf13794449657832" outcome="showMessages"/>
+  <links id="pf141141889108815" target="pf14114138877449" source="pf13800507124155" outcome="showMessages"/>
+  <links id="pf141141889108814" target="pf14114138877449" source="pf13799608496572" outcome="showMessages"/>
+  <links id="pf141141889108813" target="pf14114138877449" source="pf13798600780922" outcome="showMessages"/>
+  <links id="pf141142929083516" target="pf13800507124155" source="pf13800507124155" outcome="refresh">
+    <bendPoints d1Height="-36" d2Height="-36"/>
+    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
+    <bendPoints d1Width="-64" d2Width="-64"/>
+  </links>
+  <links id="pf141142961205018" target="pf13800507124155" source="pf13798600780922" outcome="showUserDetail"/>
+  <links id="pf141142961205017" target="pf13800507124155" source="pf13794449657832" outcome="showUserDetail"/>
 </pageflow:Pageflow>

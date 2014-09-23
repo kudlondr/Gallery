@@ -24,6 +24,11 @@
 			<tr>
 				<td><h:outputText value="#{imageBean.description}"/></td>
 			</tr>
+			<tr>
+				<h:form>
+					<h:commandLink rendered="#{imageBean.owner.id eq userBean.id}" action="#{imageBean.hideImage}" value="HideImage"/>
+				</h:form>
+			</tr>
 		</table>
     	<table>
 	    	<j:if test="#{userBean.loggedin}">

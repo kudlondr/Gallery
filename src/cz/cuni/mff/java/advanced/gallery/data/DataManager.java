@@ -40,6 +40,23 @@ public class DataManager {
 		}
     }
 	
+	protected static <T> boolean delete(T object) throws DatabaseException {
+		Session session = null;
+		Transaction trans = null;
+		try {
+	        session = getSession();
+	        trans = session.beginTransaction();
+	        
+	        session.delete(object);
+	
+	        trans.commit();
+	        return true;
+		} catch(HibernateException e) {
+			if(trans != null) trans.rollback();
+			throw new DatabaseException(e);
+		}
+    }
+	
 	protected static <T extends IdentifiedObject, D extends ModelObject> D convert(T object, Class<D> modelObjectClass) throws DatabaseException {
 		try {
 			return cz.cuni.mff.java.advanced.gallery.util.ModelMapper.convert(object, modelObjectClass);

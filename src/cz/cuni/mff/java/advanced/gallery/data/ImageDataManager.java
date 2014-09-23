@@ -17,7 +17,7 @@ import cz.cuni.mff.java.advanced.gallery.exceptions.DatabaseException;
 public class ImageDataManager extends DataManager {
 	
 	
-	public static boolean insertImage(cz.cuni.mff.java.advanced.gallery.common.Image imageData) throws DatabaseException {
+	public static Image insertImage(cz.cuni.mff.java.advanced.gallery.common.Image imageData) throws DatabaseException {
 		ImagePreview preview = convert(imageData.getPreview(), ImagePreview.class);
 		Image image = convert(imageData, Image.class);
 		
@@ -34,7 +34,8 @@ public class ImageDataManager extends DataManager {
 	        session.save(image);
 	        
 	        tr.commit();
-	        return true;
+	        
+	        return image;
 		} catch(HibernateException e) {
 			tr.rollback();
 			throw new DatabaseException(e);
@@ -49,7 +50,7 @@ public class ImageDataManager extends DataManager {
 	        session = getSession();
 	        tr = session.beginTransaction();
 	        
-	        SQLQuery query = session.createSQLQuery("select * from (select * from IMAGES order by CREATEDDATE desc) where rownum <= :recordsCount");
+	        SQLQuery query = session.createSQLQuery("select * from (select * from IMAGES order by CREATEDDATE desc) where rownum <= :recordsCount and hidden=false");
 	        query.setParameter("recordsCount", recordsCount);
 	        query.addEntity(Image.class);
 	        

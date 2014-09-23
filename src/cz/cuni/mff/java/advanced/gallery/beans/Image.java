@@ -13,6 +13,7 @@ import org.apache.myfaces.custom.fileupload.UploadedFile;
 
 import cz.cuni.mff.java.advanced.gallery.common.ImagePreview;
 import cz.cuni.mff.java.advanced.gallery.data.ImageDataManager;
+import cz.cuni.mff.java.advanced.gallery.data.MessageDataManager;
 import cz.cuni.mff.java.advanced.gallery.exceptions.ConversionException;
 import cz.cuni.mff.java.advanced.gallery.exceptions.DatabaseException;
 import cz.cuni.mff.java.advanced.gallery.exceptions.GalleryException;
@@ -68,14 +69,14 @@ public class Image extends cz.cuni.mff.java.advanced.gallery.common.Image {
         this.setOwner(owner);
         
         try{
-	        if(ImageDataManager.insertImage(this)) {
-	        	return "success";
-	        }
+	        cz.cuni.mff.java.advanced.gallery.common.Image imageDb = ImageDataManager.insertImage(this);
+        	MessageDataManager.sendMessages(owner, imageDb);
+        	return "success";
         } catch(GalleryException e) {
         	e.printStackTrace();
         }
         
-        return "failure";
+        return "refresh";
     }
     
     public UploadedFile getUploadedImage() {
@@ -169,5 +170,22 @@ public class Image extends cz.cuni.mff.java.advanced.gallery.common.Image {
 		}
 		
 		return this.images;
+	}
+	
+	public String hideImage() {
+		try {
+			ImageDataManager.hideImage(this);
+		} catch(DatabaseException e) {
+			e.printStackTrace();
+		}
+		return "refresh";
+	}
+	public String showImage() {
+		try {
+			ImageDataManager.showImage(this);
+		} catch(DatabaseException e) {
+			e.printStackTrace();
+		}
+		return "refresh";
 	}
 }

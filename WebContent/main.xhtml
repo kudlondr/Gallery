@@ -21,15 +21,14 @@
 							</h:form>
 							<h:outputText value=" by " />
 							<h:form>
-								<h:commandLink
-									action="#{userBean.goToDetail(imageItem.owner.id)}">
+								<h:commandLink action="#{userBean.goToDetail(imageItem.owner.id)}">
 									<h:outputText value="#{imageItem.owner.username}" />
 								</h:commandLink>
 							</h:form>
 						</p>
 						<h:form>
 							<h:commandLink action="#{imageItem.goToDetail(userBean)}">
-								<img src="/Gallery/faces/images/${imageItem.id}?preview" />
+								<img src="/Gallery/faces/images/${imageItem.id}?preview" style="max-height: 200px; max-width: 500px;"/>
 							</h:commandLink>
 						</h:form>
 					</td>

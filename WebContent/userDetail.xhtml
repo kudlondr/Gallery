@@ -13,25 +13,31 @@
     <ui:define name="content">
     	<h:inputHidden value="#{userDetail.initUserDetail(userBean.showUser)}"/>
     	<h:outputText value="#{userDetail.username}'s page"/>
-    	<h:outputText value="#{userBean.id != userDetail.id}"/>
-    	<h:outputText value="#{userBean.loggedin and not(userBean.id eq userDetail.id)}"/>
-    		<h:form>
-   				<h:commandButton rendered="#{userBean.loggedin and not(userBean.id eq userDetail.id) and userBean.isNotWatching(userDetail)}" value="Add to watch" action="#{userBean.addToWatch(userDetail)}"/>
-   				<h:commandButton rendered="#{userBean.loggedin and not(userBean.id eq userDetail.id) and not userBean.isNotWatching(userDetail)}" value="Remove from watch" action="#{userBean.removeFromWatch(userDetail)}"/>
-    		</h:form>
+   		<h:outputText rendered="#{userDetail.showname or userDetail.showsurname}" value="name:"/>
+   		<h:outputText render="#{userDetail.showname}" value="#{userDetail.name}"/>
+		<h:outputText rendered="#{userDetail.showsurname}" value="#{userDetail.surname}"/>
+   		<h:outputText render="#{userDetail.showemail}" value="#{userDetail.email}"/>
+   		<h:form>
+			<h:commandButton rendered="#{userBean.loggedin and not(userBean.id eq userDetail.id) and userBean.isNotWatching(userDetail)}" value="Add to watch" action="#{userBean.addToWatch(userDetail)}"/>
+			<h:commandButton rendered="#{userBean.loggedin and not(userBean.id eq userDetail.id) and not userBean.isNotWatching(userDetail)}" value="Remove from watch" action="#{userBean.removeFromWatch(userDetail)}"/>
+   		</h:form>
     	<table>
     		<j:forEach var="imageItem" items="#{userDetail.getImages(userBean.showUser)}">
     			<tr>
     				<td>
     					<h:form>
-							<h:commandLink action="#{imageItem.goToDetail(userBean)}">
+							<h:commandLink rendered="#{(not imageItem.hidden) or imageItem.owner.id eq userBean.id}" action="#{imageItem.goToDetail(userBean)}">
 								<h:outputText value="#{imageItem.name}" />
 							</h:commandLink>
 						</h:form>
     					<h:form>
-							<h:commandLink action="#{imageItem.goToDetail(userBean)}">
-								<img src="/Gallery/faces/images/${imageItem.id}?preview" />
+							<h:commandLink rendered="#{(not imageItem.hidden) or imageItem.owner.id eq userBean.id}" action="#{imageItem.goToDetail(userBean)}">
+								<img src="/Gallery/faces/images/${imageItem.id}?preview" style="max-height: 200px; max-width: 500px;"/>
 							</h:commandLink>
+						</h:form>
+						<h:form>
+							<h:commandLink rendered="#{(not imageItem.hidden) and imageItem.owner.id eq userBean.id}" action="#{imageItem.hideImage()}" value="Hide image"/>
+							<h:commandLink rendered="#{imageItem.hidden and imageItem.owner.id eq userBean.id}" action="#{imageItem.showImage()}" value="Show image"/>
 						</h:form>
     				</td>
     			</tr>

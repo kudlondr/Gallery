@@ -43,10 +43,9 @@
 		<id name="id">
 			<generator class="native"/>
 		</id>
-		<many-to-one name="image" column="IMAGEID" unique="true" class="Image"/>
+		<many-to-one name="image" column="IMAGEID" unique="true" class="Image" not-null="true"/>
 		<many-to-one name="reciever" column="RECIEVERID" unique="true" class="User"/>
 		<property name="createdDate" type="timestamp" not-null="true"/>
-		<property name="read"/>
 	</class>
 	<class name="User" table="USERS" lazy="false">
 		<meta attribute="class-description">Logged in person capable of sending messages, posting comments and uploading images</meta>
@@ -66,9 +65,10 @@
 	        <key column="BELONGSTO"/>
 	        <many-to-many column="WATCHING" class="User" lazy="false"/>
 	    </set>
-	    <set name="messages" table="MESSAGES" lazy="false" fetch="select" where="read=false">
+	    <set name="messages" table="MESSAGES" lazy="false">
 	        <key column="RECIEVERID"/>
-	        <many-to-many class="User" lazy="false"/>
+	        <one-to-many class="Message"/>
 	    </set>
+<!-- 	    <many-to-one name="messages" column="ID" foreign-key="RECIEVERID" class="Message" unique="false"/> -->
 	</class>
 </hibernate-mapping>

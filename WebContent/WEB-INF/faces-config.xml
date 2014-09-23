@@ -24,6 +24,11 @@
 		<managed-bean-class>cz.cuni.mff.java.advanced.gallery.beans.User</managed-bean-class>
 		<managed-bean-scope>view</managed-bean-scope>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>messageBean</managed-bean-name>
+		<managed-bean-class>cz.cuni.mff.java.advanced.gallery.beans.Message</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
 	<navigation-rule>
 		<from-view-id>/main.xhtml</from-view-id>
 		<navigation-case>
@@ -41,7 +46,7 @@
 	<navigation-rule>
 		<from-view-id>/account.xhtml</from-view-id>
 		<navigation-case>
-			<from-outcome>repeat</from-outcome>
+			<from-outcome>refresh</from-outcome>
 			<to-view-id>/account.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
@@ -90,7 +95,7 @@
 	<navigation-rule>
 		<from-view-id>/imageUpload.xhtml</from-view-id>
 		<navigation-case>
-			<from-outcome>failure</from-outcome>
+			<from-outcome>refresh</from-outcome>
 			<to-view-id>/imageUpload.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
@@ -203,6 +208,118 @@
 		<navigation-case>
 			<from-outcome>showImageDetail</from-outcome>
 			<to-view-id>/imageDetail.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>messages.xhtml</display-name>
+		<from-view-id>/messages.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>showImageDetail</from-outcome>
+			<to-view-id>/imageDetail.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>messages.xhtml</display-name>
+		<from-view-id>/messages.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>refresh</from-outcome>
+			<to-view-id>/messages.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>messages.xhtml</display-name>
+		<from-view-id>/messages.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>logout</from-outcome>
+			<to-view-id>/main.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>messages.xhtml</display-name>
+		<from-view-id>/messages.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>manageAccount</from-outcome>
+			<to-view-id>/account.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>messages.xhtml</display-name>
+		<from-view-id>/messages.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>showUserDetail</from-outcome>
+			<to-view-id>/userDetail.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>messages.xhtml</display-name>
+		<from-view-id>/messages.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>uploadImage</from-outcome>
+			<to-view-id>/imageUpload.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>main.xhtml</display-name>
+		<from-view-id>/main.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>showMessages</from-outcome>
+			<to-view-id>/messages.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>account.xhtml</display-name>
+		<from-view-id>/account.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>showMessages</from-outcome>
+			<to-view-id>/messages.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>userDetail.xhtml</display-name>
+		<from-view-id>/userDetail.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>showMessages</from-outcome>
+			<to-view-id>/messages.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>imageDetail.xhtml</display-name>
+		<from-view-id>/imageDetail.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>showMessages</from-outcome>
+			<to-view-id>/messages.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>imageUpload.xhtml</display-name>
+		<from-view-id>/imageUpload.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>showMessages</from-outcome>
+			<to-view-id>/messages.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>userDetail.xhtml</display-name>
+		<from-view-id>/userDetail.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>refresh</from-outcome>
+			<to-view-id>/userDetail.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>imageUpload.xhtml</display-name>
+		<from-view-id>/imageUpload.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>showUserDetail</from-outcome>
+			<to-view-id>/userDetail.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>account.xhtml</display-name>
+		<from-view-id>/account.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>showUserDetail</from-outcome>
+			<to-view-id>/userDetail.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<validator>
